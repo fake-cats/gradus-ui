@@ -16,10 +16,12 @@ export default {
 
   // Send a request to the login URL and save the returned JWT
   login(context, creds, redirect) {
-    console.log("LOGIN FUNCTION");
     axios.post(LOGIN_URL, creds)
       .then(function (response) {
-        console.log(response);
+        console.log('Logging in');
+        localStorage.setItem('access-token', response.headers['access-token'])
+        localStorage.setItem('uid', response.headers['uid'])
+        localStorage.setItem('client', response.headers['client'])
       })
       .catch(function (error) {
         console.log(error);

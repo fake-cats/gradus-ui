@@ -52,7 +52,10 @@
         }
         // We need to pass the component's this context
         // to properly make use of http in the auth service
-        auth.login(this, credentials, '/')
+        auth.login(this, credentials, '/');
+        console.log(localStorage.getItem('uid'))
+        console.log(localStorage.getItem('access-token'))
+        console.log(localStorage.getItem('client'))
       },
       // login() {
       //   this.$store.dispatch("login", {
