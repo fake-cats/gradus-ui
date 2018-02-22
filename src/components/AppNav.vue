@@ -14,7 +14,6 @@
       </li>
       <li>
         <router-link to="/" exact>Home</router-link>
-        (authenticated)
       </li>
     </ul>
     </div>

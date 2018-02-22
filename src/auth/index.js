@@ -22,18 +22,12 @@ export default {
         localStorage.setItem('access-token', response.headers['access-token'])
         localStorage.setItem('uid', response.headers['uid'])
         localStorage.setItem('client', response.headers['client'])
+        
+        this.user.authenticated = true
       })
       .catch(function (error) {
         console.log(error);
       });
-    // axios.post(LOGIN_URL, creds, (data) => {
-    //   console.log("LOGGING IN")
-    //   console.log(data);
-    //   // localStorage.setItem('access_token', data.auth_headers.access_token)
-    //   // localStorage.setItem('uid', data.auth_headers.uid)
-    //   // localStorage.setItem('client', data.auth_headers.uid)
-
-    //   // this.user.authenticated = true
 
     //   // Redirect to a specified route
     //   if(redirect) {
@@ -50,7 +44,8 @@ export default {
       this.user.authenticated = true
 
       if(redirect) {
-        context.$router.push({path: redirect})      
+        router.go(redirect)  
+        // context.$router.push({path: redirect})      
       }
 
     }).error((err) => {

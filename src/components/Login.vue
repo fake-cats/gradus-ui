@@ -5,11 +5,6 @@
     <div class="alert alert-danger" v-if="error">
       <p>{{ error }}</p>
     </div>
-<!--     <form @submit.prevent="login()">
-      <input type="text" class="form-control" placeholder="email" v-model="email">
-      <input type="password" class="form-control" placeholder="password" v-model="password">
-      <button class="btn btn-primary" type="submit">Login</button>
-    </form> -->
     <div class="form-group">
       <input
         type="text"
@@ -57,14 +52,6 @@
         console.log(localStorage.getItem('access-token'))
         console.log(localStorage.getItem('client'))
       },
-      // login() {
-      //   this.$store.dispatch("login", {
-      //     email: this.email,
-      //     password: this.password
-      //   }).then(res => {
-      //     this.$router.push('/');
-      //   })
-      // },
       logout() {
         // Remove the profile and token from localStorage
         localStorage.removeItem('profile')
