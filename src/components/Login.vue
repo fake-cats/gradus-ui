@@ -5,23 +5,30 @@
     <div class="alert alert-danger" v-if="error">
       <p>{{ error }}</p>
     </div>
-    <div class="form-group">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Enter your email"
-        v-model="credentials.email"
-      >
+    <div class="login-box">
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter your email"
+          v-model="credentials.email"
+        >
+      </div>
+      <div class="form-group">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Enter your password"
+          v-model="credentials.password"
+        >
+      </div>
+      <button type="submit" class="btn btn-primary" @click="submit()">Login</button>
     </div>
-    <div class="form-group">
-      <input
-        type="password"
-        class="form-control"
-        placeholder="Enter your password"
-        v-model="credentials.password"
-      >
-    </div>
-    <button class="btn btn-primary" @click="submit()">Access</button>
+    <!-- <form @submit.prevent="login()">
+     <input type="text" class="form-control" placeholder="email" v-model="credentials.email">
+     <input type="password" class="form-control" placeholder="password" v-model="credentials.password">
+     <button type="submit" @click="submit()">Login</button>
+    </form> -->
   </div>
 </template>
 
@@ -48,7 +55,7 @@
           email: this.credentials.email,
           password: this.credentials.password
         }).then(res => {
-          $router.push('/');
+          this.$router.push(this.$route.query.redirect || '/');
         })
       },
       logout() {
