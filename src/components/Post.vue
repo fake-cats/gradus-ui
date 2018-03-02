@@ -35,7 +35,7 @@
     name: 'post',
     data () {
       return {
-        post: null,
+        post: '',
         loading: false
       }
     },

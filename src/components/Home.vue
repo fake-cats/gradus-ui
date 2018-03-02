@@ -45,6 +45,17 @@
       console.log("BEFORE MOUNT")
       this.getPosts()
     },
+    computed: {
+      user () {
+        return store.state.user;
+      },
+      authHeaders () {
+        return store.state.authHeaders;
+      },
+      firstDegreePosts () {
+        return store.state.firstDegreePosts; 
+      }
+    },
     methods: {
       getPosts: function () {
         this.loading = true;
@@ -55,6 +66,10 @@
         }, (error)  =>  {
           this.loading = false;
         })
+      },
+      getFirstDegreePosts () {
+        console.log("GETTING POSTS")
+        this.$store.dispatch("getFirstDegreePosts")
       }
     },
     filters: {

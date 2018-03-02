@@ -26,7 +26,9 @@
 </template>
 
 <script>
-  import auth from '../auth'	
+  import auth from '../auth'
+  import store from '../store'
+  import axios from 'axios'
 
   export default {
     data() {
@@ -41,16 +43,13 @@
 
     methods: {
       submit() {
-        var credentials = {
+        console.log("STEP 1")
+        store.dispatch("login", {
           email: this.credentials.email,
           password: this.credentials.password
-        }
-        // We need to pass the component's this context
-        // to properly make use of http in the auth service
-        auth.login(this, credentials, '/');
-        console.log(localStorage.getItem('uid'))
-        console.log(localStorage.getItem('access-token'))
-        console.log(localStorage.getItem('client'))
+        }).then(res => {
+          $router.push('/');
+        })
       },
       logout() {
         // Remove the profile and token from localStorage

@@ -23,17 +23,17 @@ export default {
         localStorage.setItem('uid', response.headers['uid'])
         localStorage.setItem('client', response.headers['client'])
         
-        this.user.authenticated = true
+        // this.user.authenticated = true
       })
       .catch(function (error) {
         console.log(error);
       });
 
-    //   // Redirect to a specified route
-    //   if(redirect) {
-    //     $router.push({path: redirect})       
-    //   }
-    // })
+      // Redirect to a specified route
+      if(redirect) {
+        console.log("redirect")
+        router.push({ name: 'post', params: {redirect} })       
+      }
   },
 
   signup(context, creds, redirect) {
@@ -53,24 +53,24 @@ export default {
     })
   },
 
-  // To log out, we just need to remove the token
   logout() {
-    localStorage.removeItem('id_token')
-    localStorage.removeItem('access_token')
+    localStorage.removeItem('access-token')
+    localStorage.removeItem('uid')
+    localStorage.removeItem('client')
     this.user.authenticated = false
   },
 
   getToken () {
-    return localStorage.id_token
+    return localStorage['access-token']
   },
 
   loggedIn () {
-    return !!localStorage.id_token
+    return !!localStorage['access-token']
   },
 
   checkAuth() {
-    var jwt = localStorage.getItem('id_token')
-    if(jwt) {
+    var tokens = localStorage.getItem('access-token') && localStorage.getItem('uid') && localStorage.getItem('client')
+    if(tokens) {
       this.user.authenticated = true
     }
     else {
@@ -81,7 +81,7 @@ export default {
   // The object to be passed as a header for authenticated requests
   getAuthHeader() {
     return {
-      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+      'Authorization': 'Bearer ' + localStorage.getItem('access-token')
     }
   }
 }
