@@ -8,9 +8,11 @@
     </div>
     <div class="col-sm-2">
       <ul>
-      <li>
-        <router-link v-if="loggedIn" to="/logout">Log out</router-link>
-        <router-link v-if="!loggedIn" to="/login">Log in</router-link>
+      <router-link v-if="isLoggedIn === false" to="/login">
+        <button class="btn-small">Log in</button>
+      </router-link>
+      <li v-else>
+        <button class="btn-small" v-on:click="logout()">Log out</button>
       </li>
       <li>
         <router-link to="/" exact>Home</router-link>
@@ -22,16 +24,25 @@
 
 <script>
   import auth from '../auth'
+  import store from '../store'
 
   export default {
     data () {
       return {
-        loggedIn: auth.loggedIn()
+        posts: [],
+        loading: false
       }
     },
-    created () {
-      auth.onChange = loggedIn => {
-        this.loggedIn = loggedIn
+    computed: {
+      isLoggedIn () {
+        return store.getters.isLoggedIn
+      }
+    },
+    methods: {
+      logout() {
+        console.log("LOGOUT")
+        store.dispatch("logout");
+        this.loggedIn = false
       }
     }
   }

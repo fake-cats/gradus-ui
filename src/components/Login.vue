@@ -22,12 +22,12 @@
           v-model="credentials.password"
         >
       </div>
-      <button type="submit" class="btn btn-primary" @click="submit()">Login</button>
+      <button type="submit" class="btn btn-primary" @click.prevent="submit()">Login</button>
     </div>
     <!-- <form @submit.prevent="login()">
      <input type="text" class="form-control" placeholder="email" v-model="credentials.email">
      <input type="password" class="form-control" placeholder="password" v-model="credentials.password">
-     <button type="submit" @click="submit()">Login</button>
+     <button type="submit">Login</button>
     </form> -->
   </div>
 </template>
@@ -50,19 +50,12 @@
 
     methods: {
       submit() {
-        console.log("STEP 1")
         store.dispatch("login", {
           email: this.credentials.email,
           password: this.credentials.password
-        }).then(res => {
-          this.$router.push(this.$route.query.redirect || '/');
-        })
-      },
-      logout() {
-        // Remove the profile and token from localStorage
-        localStorage.removeItem('profile')
-        localStorage.removeItem('id_token')
-      },
+        });
+        this.$router.push('/')
+      }
     }
   }
 </script>

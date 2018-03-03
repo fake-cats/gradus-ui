@@ -31,6 +31,7 @@
 <script>
   import axios from 'axios'
   import moment from 'moment'
+  import store from '../store'
 
   
   export default {
@@ -48,6 +49,9 @@
     computed: {
       user () {
         return store.state.user;
+      },
+      isLoggedIn () {
+        return store.getters.isLoggedIn
       },
       authHeaders () {
         return store.state.authHeaders;
