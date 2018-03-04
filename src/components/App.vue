@@ -10,6 +10,7 @@
   import AppNav from './AppNav.vue'
   import AppFooter from './AppFooter.vue'
   import store from '../store'
+  
   export default {
     name: 'app',
     components: { AppNav, AppFooter },
