@@ -33,7 +33,6 @@
 </template>
 
 <script>
-  import auth from '../auth'
   import store from '../store'
   import axios from 'axios'
 

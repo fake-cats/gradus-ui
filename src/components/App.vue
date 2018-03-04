@@ -7,20 +7,20 @@
 </template>
 
 <script>
-  import auth from '../auth'
   import AppNav from './AppNav.vue'
   import AppFooter from './AppFooter.vue'
+  import store from '../store'
   export default {
     name: 'app',
     components: { AppNav, AppFooter },
     data () {
       return {
-        user: auth.user
+        auth: store.getters.isLoggedIn
       }
     },
     methods: {
       logout() {
-        auth.logout()
+        store.logout()
       }
     }
   }

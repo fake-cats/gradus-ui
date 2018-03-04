@@ -23,13 +23,11 @@
 </template>
 
 <script>
-  import auth from '../auth'
   import store from '../store'
 
   export default {
     data () {
       return {
-        posts: [],
         loading: false
       }
     },
