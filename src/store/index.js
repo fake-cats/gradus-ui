@@ -36,7 +36,9 @@ export default new Vuex.Store({
     },
     [LOGOUT](state) {
       state.user = ANONYMOUS_USER;
-      state.access_token = {};
+      state.access_token = null;
+      state.uid = null;
+      state.client = null;
       state.isLoggedIn = false;
     },
     [FIRST_DEGREE_POSTS](state, data) {
@@ -80,7 +82,12 @@ export default new Vuex.Store({
     }) {
       console.log("getting first degree posts...");
       return new Promise(resolve => {
-        axios.get('https://gradusunum-mainframe-api.herokuapp.com/posts/first_degree_friends', { headers: state.access_token })
+        axios.get('https://gradusunum-mainframe-api.herokuapp.com/posts/first_degree_friends', { headers: { 
+            "access-token": store.state.access_token,
+            "uid": store.state.uid,
+            "client": store.state.client
+          }
+        })
           .then(function (response) {
             var postData = { posts: response.data }
             commit(FIRST_DEGREE_POSTS, postData);
@@ -93,12 +100,12 @@ export default new Vuex.Store({
     logout({
       commit
     }) {
-      localStorage.removeItem('access-token');
-      localStorage.removeItem('uid');
-      localStorage.removeItem('client');
-      commit(LOGOUT);
-      console.log("LOGOUT")
-    }
+      axios.post('https://gradusunum-mainframe-api.herokuapp.com/auth/sign_out')
+      .then(function (response) {
+        commit(LOGOUT);
+        console.log("LOGOUT")
+        }
+      )},
   },
   getters: {
     isLoggedIn: state => {
