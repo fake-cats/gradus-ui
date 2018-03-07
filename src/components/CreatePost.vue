@@ -58,8 +58,8 @@ export default {
 	      		"access-token": store.state.access_token,
 	      		"uid": store.state.uid,
 	      		"client": store.state.client
-	      		}
-	       }
+	      	}
+	      }
 	    )
 	    .then(response => { console.log(response)})
 	    .catch(e => {
