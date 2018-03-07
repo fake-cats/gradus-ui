@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="col-sm-2">
-      
+      <span><router-link to="/createpost">Create Post</router-link></span>
     </div>
     <div class="col-sm-8">
       <span><router-link to="/" exact>AppNav</router-link></span>

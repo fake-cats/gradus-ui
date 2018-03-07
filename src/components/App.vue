@@ -13,6 +13,7 @@
   
   export default {
     name: 'app',
+    store,
     components: { AppNav, AppFooter },
     data () {
       return {

@@ -18,8 +18,11 @@ const FIRST_DEGREE_POSTS = "FIRST_DEGREE_POSTS";
 export default new Vuex.Store({
   state: {
     user: ANONYMOUS_USER,
-    isLoggedIn: !!localStorage.getItem('authHeaders'),
-    authHeaders: localStorage.getItem('authHeaders') || DEFAULT_HEADERS,
+    isLoggedIn: !!localStorage.getItem('access-token'),
+    // authHeaders: localStorage.getItem('authHeaders') || DEFAULT_HEADERS,
+    access_token: localStorage.getItem('access-token'),
+    uid: localStorage.getItem('uid'),
+    client: localStorage.getItem('client'),
     firstDegreePosts: []
   },
   mutations: {
@@ -52,15 +55,17 @@ export default new Vuex.Store({
       return new Promise(resolve => {
         axios.post('https://gradusunum-mainframe-api.herokuapp.com/auth/sign_in', creds)
           .then(function (response) {
-            var authHeaders = {
-              access_token: response.headers['access-token'],
-              uid: response.headers['uid'],
-              client: response.headers['client']
-            }
-            localStorage.setItem('authHeaders', authHeaders)
+            var access_token = response.headers['access-token'];
+            var uid = response.headers['uid'];
+            var client = response.headers['client'];
+            localStorage.setItem('access-token', access_token),
+            localStorage.setItem('uid', uid),
+            localStorage.setItem('client', client)
             var userData = {
               user: response.data.data,
-              authHeaders: authHeaders
+              access_token: access_token,
+              uid: uid,
+              client: client
             }
             commit(LOGIN_SUCCESS, userData);
           })
@@ -89,7 +94,9 @@ export default new Vuex.Store({
     logout({
       commit
     }) {
-      localStorage.removeItem("authHeaders");
+      localStorage.removeItem('access-token');
+      localStorage.removeItem('uid');
+      localStorage.removeItem('client');
       commit(LOGOUT);
       console.log("LOGOUT")
     }
