@@ -49,15 +49,15 @@ export default {
 
 	  // Pushes posts to the server when called.
 	  createPost() {
-	  	console.log(localStorage.getItem('access-token'))
+	  	console.log(store.state)
 	    axios.post('https://gradusunum-mainframe-api.herokuapp.com/posts', {
 	      title: this.postTitle,
 	      body: this.postBody
 	  	},
 	      { headers: { 
-	      		access_token: store.state.access_token,
-	      		uid: store.state.uid,
-	      		client: store.state.client
+	      		"access-token": store.state.access_token,
+	      		"uid": store.state.uid,
+	      		"client": store.state.client
 	      		}
 	       }
 	    )
