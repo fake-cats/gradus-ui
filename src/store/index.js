@@ -19,8 +19,7 @@ export default new Vuex.Store({
   state: {
     user: ANONYMOUS_USER,
     isLoggedIn: !!localStorage.getItem('access-token'),
-    // authHeaders: localStorage.getItem('authHeaders') || DEFAULT_HEADERS,
-    access_token: localStorage.getItem('access-token'),
+    access_token: localStorage.getItem('access-token') || DEFAULT_HEADERS,
     uid: localStorage.getItem('uid'),
     client: localStorage.getItem('client'),
     firstDegreePosts: []
@@ -31,13 +30,13 @@ export default new Vuex.Store({
     },
     [LOGIN_SUCCESS](state, data) {
       state.user = data.user;
-      state.authHeaders = data.authHeaders;
+      state.access_token = data.access_token;
       state.isLoggedIn = true;
       state.pending = false;
     },
     [LOGOUT](state) {
       state.user = ANONYMOUS_USER;
-      state.authHeaders = {};
+      state.access_token = {};
       state.isLoggedIn = false;
     },
     [FIRST_DEGREE_POSTS](state, data) {
@@ -81,7 +80,7 @@ export default new Vuex.Store({
     }) {
       console.log("getting first degree posts...");
       return new Promise(resolve => {
-        axios.get('https://gradusunum-mainframe-api.herokuapp.com/posts/first_degree_friends', { headers: state.authHeaders })
+        axios.get('https://gradusunum-mainframe-api.herokuapp.com/posts/first_degree_friends', { headers: state.access_token })
           .then(function (response) {
             var postData = { posts: response.data }
             commit(FIRST_DEGREE_POSTS, postData);

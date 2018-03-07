@@ -41,6 +41,7 @@ export default {
     return {
       postTitle: '',
       postBody: '',
+      headers: {},
       errors: []
     }
   },
@@ -49,12 +50,13 @@ export default {
 
 	  // Pushes posts to the server when called.
 	  createPost() {
-	  	console.log(store.state)
+	  	console.log(store.state.access_token)
 	    axios.post('https://gradusunum-mainframe-api.herokuapp.com/posts', {
 	      title: this.postTitle,
 	      body: this.postBody
-	  	},
-	      { headers: { 
+	  	  },
+	      { 
+	      	headers: { 
 	      		"access-token": store.state.access_token,
 	      		"uid": store.state.uid,
 	      		"client": store.state.client
