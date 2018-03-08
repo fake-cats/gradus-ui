@@ -2,10 +2,12 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import store from '../store'
+import api from '../api'
 import Login from '../components/Login'
 import Home from '../components/Home'
 import Post from '../components/Post'
 import CreatePost from '../components/CreatePost'
+
 
 
 Vue.use(VueRouter)

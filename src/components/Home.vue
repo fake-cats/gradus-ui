@@ -111,7 +111,7 @@
 
   main {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 60px;
   }
 
   button {

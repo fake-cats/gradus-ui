@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 import Store from '../store'
+import api from '../api'
 
 Vue.use(Vuex)
 
@@ -15,13 +16,18 @@ const ANONYMOUS_USER = {
 const DEFAULT_HEADERS = {}
 const FIRST_DEGREE_POSTS = "FIRST_DEGREE_POSTS";
 
+const HTTP = axios.create({
+  baseURL: 'https://gradusunum-mainframe-api.herokuapp.com/',
+  headers: {
+    'Content-Type': 'application/json',
+  }
+});
+
 export default new Vuex.Store({
   state: {
     user: ANONYMOUS_USER,
-    isLoggedIn: !!localStorage.getItem('access-token'),
-    access_token: localStorage.getItem('access-token') || DEFAULT_HEADERS,
-    uid: localStorage.getItem('uid'),
-    client: localStorage.getItem('client'),
+    isLoggedIn: !!localStorage.getItem('jwt'),
+    access_token: localStorage.getItem('jwt') || DEFAULT_HEADERS,
     firstDegreePosts: []
   },
   mutations: {
@@ -30,15 +36,13 @@ export default new Vuex.Store({
     },
     [LOGIN_SUCCESS](state, data) {
       state.user = data.user;
-      state.access_token = data.access_token;
+      state.jwt = data.jwt;
       state.isLoggedIn = true;
       state.pending = false;
     },
     [LOGOUT](state) {
       state.user = ANONYMOUS_USER;
-      state.access_token = null;
-      state.uid = null;
-      state.client = null;
+      state.jwt = null;
       state.isLoggedIn = false;
     },
     [FIRST_DEGREE_POSTS](state, data) {
@@ -54,19 +58,13 @@ export default new Vuex.Store({
       console.log("login...", creds);
       commit(LOGIN); // show spinner
       return new Promise(resolve => {
-        axios.post('https://gradusunum-mainframe-api.herokuapp.com/auth/sign_in', creds)
+        HTTP.get('user_token')
           .then(function (response) {
-            var access_token = response.headers['access-token'];
-            var uid = response.headers['uid'];
-            var client = response.headers['client'];
-            localStorage.setItem('access-token', access_token),
-            localStorage.setItem('uid', uid),
-            localStorage.setItem('client', client)
+            var jwt = response.headers['jwt'];
+            localStorage.setItem('jwt', jwt)
             var userData = {
               user: response.data.data,
-              access_token: access_token,
-              uid: uid,
-              client: client
+              jwt: jwt
             }
             commit(LOGIN_SUCCESS, userData);
           })
@@ -82,7 +80,7 @@ export default new Vuex.Store({
     }) {
       console.log("getting first degree posts...");
       return new Promise(resolve => {
-        axios.get('https://gradusunum-mainframe-api.herokuapp.com/posts/first_degree_friends', { headers: { 
+        HTTP.get('posts/first_degree_friends', { headers: { 
             "access-token": store.state.access_token,
             "uid": store.state.uid,
             "client": store.state.client
@@ -100,12 +98,8 @@ export default new Vuex.Store({
     logout({
       commit
     }) {
-      axios.post('https://gradusunum-mainframe-api.herokuapp.com/auth/sign_out')
-      .then(function (response) {
-        commit(LOGOUT);
-        console.log("LOGOUT")
-        }
-      )},
+      commit(LOGOUT);
+    },
   },
   getters: {
     isLoggedIn: state => {

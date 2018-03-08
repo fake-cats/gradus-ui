@@ -50,7 +50,7 @@ export default {
 
 	  // Pushes posts to the server when called.
 	  createPost() {
-	  	console.log(store.state.access_token)
+	  	console.log(store.state)
 	    axios.post('https://gradusunum-mainframe-api.herokuapp.com/posts', {
 	      title: this.postTitle,
 	      body: this.postBody
@@ -84,7 +84,7 @@ export default {
 
 <style type="text/css">
 	#createPost {
-		padding-top: 30px;
+		padding-top: 60px;
 	}
 
 	textarea {
