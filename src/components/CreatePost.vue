@@ -1,5 +1,5 @@
 <template>
-  <div id="createPost"> 
+  <div class="createpost"> 
 	  <div class="col-sm-2">
 
 	  </div>
@@ -39,16 +39,16 @@
 	const HTTP = axios.create({
 	  baseURL: 'https://gradusunum-mainframe-api.herokuapp.com/',
 	  headers: {
-	    'Authorization': 'Bearer',
+	    'Authorization': 'Bearer' + ' ' + store.state.jwt
 	  }
 	});
 
 	export default {
+	  name: 'createpost',
 	  data() {
 	    return {
 	      postTitle: '',
 	      postBody: '',
-	      headers: {},
 	      errors: []
 	    }
 	  },
@@ -87,8 +87,8 @@
 	}
 </script>
 
-<style type="text/css">
-	#createPost {
+<style>
+	.createpost {
 		padding-top: 60px;
 	}
 

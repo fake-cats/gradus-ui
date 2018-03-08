@@ -30,7 +30,9 @@ const router = new VueRouter({
       component: Login
     },
     { 
-      path: '/createpost', 
+      path: '/createpost',
+      name: 'createpost',
+      beforeEnter: requireAuth,
       component: CreatePost
     }
   ]
