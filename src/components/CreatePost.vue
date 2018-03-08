@@ -33,53 +33,58 @@
 </template>
 
 <script>
-import axios from 'axios'
-import store from '../store'
+	import axios from 'axios'
+	import store from '../store'
 
-export default {
-  data() {
-    return {
-      postTitle: '',
-      postBody: '',
-      headers: {},
-      errors: []
-    }
-  },
-
-  methods: {
-
-	  // Pushes posts to the server when called.
-	  createPost() {
-	  	console.log(store.state)
-	    axios.post('https://gradusunum-mainframe-api.herokuapp.com/posts', {
-	      title: this.postTitle,
-	      body: this.postBody
-	  	  },
-	      { 
-	      	headers: { 
-	      		"access-token": store.state.access_token,
-	      		"uid": store.state.uid,
-	      		"client": store.state.client
-	      	}
-	      }
-	    )
-	    .then(response => { console.log(response)})
-	    .catch(e => {
-	      this.errors.push(e)
-	    })
-
-	    // async / await version (createPost() becomes async createPost())
-	    //
-	    // try {
-	    //   await axios.post(`https://gradusunum-mainframe-api.herokuapp.com/posts`, {
-	    //     body: this.postBody
-	    //   })
-	    // } catch (e) {
-	    //   this.errors.push(e)
-	    // }
+	const HTTP = axios.create({
+	  baseURL: 'https://gradusunum-mainframe-api.herokuapp.com/',
+	  headers: {
+	    'Authorization': 'Bearer',
 	  }
-  }
-}
+	});
+
+	export default {
+	  data() {
+	    return {
+	      postTitle: '',
+	      postBody: '',
+	      headers: {},
+	      errors: []
+	    }
+	  },
+
+	  methods: {
+
+		  // Pushes posts to the server when called.
+		  createPost() {
+		  	console.log(store.state)
+		    HTTP.post('posts', {
+		      title: this.postTitle,
+		      body: this.postBody
+		  	  },
+		      { 
+		      	headers: { 
+		      		'Authorization': 'Bearer' + ' ' + store.state.jwt
+		      	}
+		      }
+		    )
+		    .then(response => { console.log(response)})
+		    .catch(e => {
+		      this.errors.push(e)
+		    })
+
+		    // async / await version (createPost() becomes async createPost())
+		    //
+		    // try {
+		    //   await axios.post(`https://gradusunum-mainframe-api.herokuapp.com/posts`, {
+		    //     body: this.postBody
+		    //   })
+		    // } catch (e) {
+		    //   this.errors.push(e)
+		    // }
+		  }
+	  }
+	}
 </script>
 
 <style type="text/css">

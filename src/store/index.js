@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 import Store from '../store'
-import api from '../api'
 
 Vue.use(Vuex)
 
@@ -27,7 +26,7 @@ export default new Vuex.Store({
   state: {
     user: ANONYMOUS_USER,
     isLoggedIn: !!localStorage.getItem('jwt'),
-    access_token: localStorage.getItem('jwt') || DEFAULT_HEADERS,
+    jwt: localStorage.getItem('jwt') || DEFAULT_HEADERS,
     firstDegreePosts: []
   },
   mutations: {
@@ -54,17 +53,17 @@ export default new Vuex.Store({
       state,
       commit,
       rootState
-    }, creds) {
-      console.log("login...", creds);
+    }, auth) {
+      console.log("login...", auth);
       commit(LOGIN); // show spinner
       return new Promise(resolve => {
-        HTTP.get('user_token')
+        HTTP.post('user_token', {auth})
           .then(function (response) {
-            var jwt = response.body['jwt'];
+            var jwt = response.data['jwt'];
             localStorage.setItem('jwt', jwt)
             var userData = {
-              user: response.data.data,
-              jwt: jwt
+              user: response.data,
+              jwt: response.data.jwt
             }
             commit(LOGIN_SUCCESS, userData);
           })
@@ -81,9 +80,7 @@ export default new Vuex.Store({
       console.log("getting first degree posts...");
       return new Promise(resolve => {
         HTTP.get('posts/first_degree_friends', { headers: { 
-            "access-token": store.state.access_token,
-            "uid": store.state.uid,
-            "client": store.state.client
+            "jwt": store.state.jwt
           }
         })
           .then(function (response) {
