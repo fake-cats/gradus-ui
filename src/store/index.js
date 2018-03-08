@@ -60,7 +60,7 @@ export default new Vuex.Store({
       return new Promise(resolve => {
         HTTP.get('user_token')
           .then(function (response) {
-            var jwt = response.headers['jwt'];
+            var jwt = response.body['jwt'];
             localStorage.setItem('jwt', jwt)
             var userData = {
               user: response.data.data,
