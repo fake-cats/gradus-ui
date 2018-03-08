@@ -10,7 +10,7 @@
       <div class="row">
         <div class="col-sm-12 cards">
           <div class="col-sm-4">
-             <img src="https://c1.staticflickr.com/2/1467/25292000313_3ca22bf530_n.jpg" class="img-responsive" alt="Random images placeholder">
+             <img src="https://i.redd.it/m2n3tfwiidk01.jpg" class="img-responsive" alt="Random images placeholder">
           </div>
           <div class="col-sm-8">
             <h1>{{ post.title }}</h1>

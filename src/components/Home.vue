@@ -11,7 +11,7 @@
           <div v-for="post in posts" :key="post.id">
             <div class="col-sm-4 cards">
               <router-link :to="{ name: 'post', params: { id: post.id }}">
-               <img src="https://c1.staticflickr.com/2/1467/25292000313_3ca22bf530_n.jpg" class="img-responsive" alt="Random images placeholder"> 
+               <img src="https://i.redd.it/m2n3tfwiidk01.jpg" class="img-responsive" alt="Random images placeholder"> 
               <div>
                 <h3>{{ post.id }}</h3>
                 <p>{{ post.title }}</p>

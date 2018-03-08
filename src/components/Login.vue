@@ -18,6 +18,7 @@
                   class="form-control"
                   placeholder="Enter your email"
                   v-model="credentials.email"
+                  @keyup.enter="$emit('close', submit())"
                 >
               </div>
               <div class="form-group">
@@ -26,6 +27,7 @@
                   class="form-control"
                   placeholder="Enter your password"
                   v-model="credentials.password"
+                  @keyup.enter="$emit('close', submit())"
                 >
               </div>
             </slot>
