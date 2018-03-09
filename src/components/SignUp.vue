@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="signup">
     <transition name="modal">
       <div class="modal-mask">
         <div class="modal-wrapper">
@@ -7,7 +7,7 @@
 
             <div class="modal-header">
               <slot name="header">
-                Log In
+                Sign Up
               </slot>
             </div>
 
@@ -17,8 +17,17 @@
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="Enter your email"
-                    v-model="credentials.email"
+                    placeholder="Full Name"
+                    v-model="name"
+                    @keyup.enter="$emit('close', submit())"
+                  >
+                </div>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter your Email"
+                    v-model="email"
                     @keyup.enter="$emit('close', submit())"
                   >
                 </div>
@@ -27,7 +36,7 @@
                     type="password"
                     class="form-control"
                     placeholder="Enter your password"
-                    v-model="credentials.password"
+                    v-model="password"
                     @keyup.enter="$emit('close', submit())"
                   >
                 </div>
@@ -36,8 +45,8 @@
 
             <div class="modal-footer">
               <slot name="footer">
-                <button type="button" class="btn btn-primary" @click="$emit('close')">Sign Up</button>
-                <button type="submit" class="btn btn-secondary" @click="$emit('close', submit())">Login</button>
+                <button type="submit" class="btn btn-primary" @click="$emit('close')">Login</button>
+                <button type="button" class="btn btn-secondary" @click="$emit('close', submit())">Sign Up</button>
               </slot>
             </div>
           </div>
@@ -46,67 +55,35 @@
     </transition>
   </div>
 </template>
-<!-- <template>
-  <div class="col-sm-4 col-sm-offset-4">
-
-    <h2>Log In</h2>
-    <div class="alert alert-danger" v-if="error">
-      <p>{{ error }}</p>
-    </div>
-    <div class="login-box">
-      <div class="form-group">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Enter your email"
-          v-model="credentials.email"
-        >
-      </div>
-      <div class="form-group">
-        <input
-          type="password"
-          class="form-control"
-          placeholder="Enter your password"
-          v-model="credentials.password"
-        >
-      </div>
-      <button type="submit" class="btn btn-primary" @click.prevent="submit()">Login</button>
-    </div>
-    <form @submit.prevent="login()">
-     <input type="text" class="form-control" placeholder="email" v-model="credentials.email">
-     <input type="password" class="form-control" placeholder="password" v-model="credentials.password">
-     <button type="submit">Login</button>
-    </form>
-  </div>
-</template> -->
 
 <script>
   import store from '../store'
   import axios from 'axios'
 
   export default {
-    name: 'login',
+    name: 'signup',
     data() {
       return {
-        credentials: {
-          email: '',
-          password: ''
-        },
+        name: '',
+        email: '',
+        password: '',
         error: ''
       }
     },
 
     methods: {
       submit() {
-        store.dispatch("login", {
-          email: this.credentials.email,
-          password: this.credentials.password
+        store.dispatch("signup", {
+          name: this.name,
+          email: this.email,
+          password: this.password
         });
-        this.$router.push(this.$route.query.redirect || '/')
+        this.$router.push('/')
       }
     }
   }
 </script>
+
 
 <style>
   .modal-mask {

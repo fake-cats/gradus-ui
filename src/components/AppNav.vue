@@ -23,19 +23,26 @@
       <ul>
         <!-- <router-link to="/createpost">Create Post</router-link> -->
         <li>
+          <a href="#/profile">Profile</a>
+        </li>
+        <li>
           <a href="#/createpost">Create Post</a>
         </li>
         <router-link to="/" exact>AppNav</router-link>
         <li v-if="isLoggedIn === false">
-          <button class="btn btn-secondary" id="show-modal" @click="showModal = true">Login</button>
+          <button class="btn btn-secondary" id="show-modal" @click="signupModal = true">Sign Up</button>
+          <button class="btn btn-secondary" id="show-modal" @click="loginModal = true">Login</button>
         </li>
         <li v-else>
           <button class="btn btn-secondary" v-on:click="logout()">Log out</button>
         </li>
       </ul>
-      <login v-if="showModal" @close="showModal = false">
+      <login v-if="loginModal" @close="loginModal = false">
         <h3 slot="header">Login</h3>
       </login>
+      <signup v-if="signupModal" @close="signupModal = false">
+        <h3 slot="header">Sign Up</h3>
+      </signup>
     </nav>
   </header>
 </template>
@@ -43,12 +50,14 @@
 <script>
   import store from '../store'
   import login from './Login'
+  import signup from './SignUp'
 
   export default {
     data () {
       return {
         loading: false,
-        showModal: false
+        loginModal: false,
+        signupModal: false
       }
     },
     computed: {
@@ -64,13 +73,15 @@
       }
     },
     components: { 
-      login: login
+      login: login,
+      signup: signup
     }
   }
 </script>
 
 <style>
   header {
+    font-family: 'Merriweather', serif;
     margin: 0;
     position: fixed; /* Set the navbar to fixed position */
     top: 0; /* Position the navbar at the top of the page */
@@ -135,6 +146,8 @@
   }
 
   nav ul li a {
+    font-family: 'Merriweather', serif;
+    font-weight: bold;
     padding: 5px;
     color: rgba(0, 0, 0, 0.5);
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.4);

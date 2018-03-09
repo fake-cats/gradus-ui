@@ -7,6 +7,7 @@ import Login from '../components/Login'
 import Home from '../components/Home'
 import Post from '../components/Post'
 import CreatePost from '../components/CreatePost'
+import Profile from '../components/Profile'
 
 
 
@@ -28,6 +29,12 @@ const router = new VueRouter({
     { 
       path: '/login', 
       component: Login
+    },
+    { 
+      path: '/profile/:id',
+      name: 'profile',
+      beforeEnter: requireAuth,
+      component: Profile
     },
     { 
       path: '/createpost',

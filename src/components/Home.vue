@@ -11,8 +11,8 @@
           <div v-for="post in posts" :key="post.id">
             <div class="col-sm-4 cards">
               <router-link :to="{ name: 'post', params: { id: post.id }}">
-               <img src="https://i.redd.it/m2n3tfwiidk01.jpg" class="img-responsive" alt="Random images placeholder"> 
-              <div>
+               <img src="https://i.redd.it/m2n3tfwiidk01.jpg" class="img-responsive" alt="Random images placeholder"/> 
+              <div class="post">
                 <h3>{{ post.id }}</h3>
                 <p>{{ post.title }}</p>
                 <p>{{ post.created_at | formatUtc }}</p>
@@ -103,7 +103,7 @@
   }
 
   #home {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-family: 'Karma', serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
@@ -138,6 +138,10 @@
     column-gap: 1em;
     margin-top: 20px;
 
+  }
+
+  .post p {
+    font-family: 'Merriweather', serif;
   }
 
   .cards img {

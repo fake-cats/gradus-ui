@@ -14,10 +14,13 @@
           </div>
           <div class="col-sm-8">
             <h1>{{ post.title }}</h1>
-            <h3>by {{ post.author }}</h3>
+            <router-link :to="{ name: 'profile', params: { id: post.user_id }}" :id="post.user_id">
+              <h3>by {{ post.author }}</h3>
+            </router-link>
             <h3>votes {{ post.cached_votes_total }}</h3>
             <p>{{ post.created_at | formatUtc }}</p>
             <p>{{ post.body }}</p>
+            <p>{{ post.user_id }}</p>
           </div>
         </div>
       </div>
@@ -84,7 +87,7 @@
   }
 
   #post {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-family: 'Merriweather', serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
@@ -116,9 +119,10 @@
 
 
   .cards {
-     column-count: 1;
+    font-weight: bold;
+    column-count: 1;
     column-gap: 1em;
-      margin-top: 70px;
+    margin-top: 70px;
 
   }
 </style>

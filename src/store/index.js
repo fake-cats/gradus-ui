@@ -62,7 +62,29 @@ export default new Vuex.Store({
             var jwt = response.data['jwt'];
             localStorage.setItem('jwt', jwt)
             var userData = {
-              user: response.data,
+              user: response.data.user,
+              jwt: response.data.jwt
+            }
+            commit(LOGIN_SUCCESS, userData);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });     
+      });
+    },
+    signup({
+      state,
+      commit,
+      rootState
+    }, creds) {
+      console.log("signup...", creds);
+      return new Promise(resolve => {
+      HTTP.post('api/v0/sign_up', creds)
+      .then(function (response) {
+            var jwt = response.data['jwt'];
+            localStorage.setItem('jwt', jwt)
+            var userData = {
+              user: response.data.user,
               jwt: response.data.jwt
             }
             commit(LOGIN_SUCCESS, userData);
