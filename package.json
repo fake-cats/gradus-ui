@@ -9,6 +9,9 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
+    "scripts": {
+    "start": "node .src/main.js"
+  },
   "dependencies": {
     "axios": "^0.17.1",
     "moment": "^2.20.1",
