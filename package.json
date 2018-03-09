@@ -10,7 +10,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
     "scripts": {
-    "start": "node .src/main.js"
+    "start": "node src/main.js"
   },
   "dependencies": {
     "axios": "^0.17.1",
