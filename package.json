@@ -8,7 +8,7 @@
   "scripts": {
     "build": "webpack --config webpack.conf.js",
     "deploy": "npm run build && gh-pages -d build",
-    "start": "webpack-dev-server"
+    "start": "node server.js"
   },
   "dependencies": {
     "axios": "^0.17.1",
