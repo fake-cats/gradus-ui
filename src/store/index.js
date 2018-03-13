@@ -45,6 +45,7 @@ export default new Vuex.Store({
     [LOGOUT](state) {
       state.user = ANONYMOUS_USER;
       state.jwt = null;
+      state.username = ANONYMOUS_NAME;
       state.isLoggedIn = false;
     },
     [FIRST_DEGREE_POSTS](state, data) {

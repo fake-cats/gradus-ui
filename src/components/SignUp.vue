@@ -17,7 +17,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="Full Name"
+                    placeholder="Username"
                     v-model="name"
                     @keyup.enter="$emit('close', submit())"
                   >
@@ -26,7 +26,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="Enter your Email"
+                    placeholder="Email"
                     v-model="email"
                     @keyup.enter="$emit('close', submit())"
                   >
@@ -35,7 +35,7 @@
                   <input
                     type="password"
                     class="form-control"
-                    placeholder="Enter your password"
+                    placeholder="Password"
                     v-model="password"
                     @keyup.enter="$emit('close', submit())"
                   >
@@ -45,7 +45,7 @@
 
             <div class="modal-footer">
               <slot name="footer">
-                <button type="submit" class="btn btn-primary" @click="$emit('close')">Login</button>
+                <button type="submit" class="btn btn-primary" @click="$emit('close')">Cancel</button>
                 <button type="button" class="btn btn-secondary" @click="$emit('close', submit())">Sign Up</button>
               </slot>
             </div>
