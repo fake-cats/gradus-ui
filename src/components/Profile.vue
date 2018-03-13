@@ -3,7 +3,7 @@
 	  <h1>
 	    {{profile.name}}
 	  </h1>
-	  <button class="btn btn-secondary" @click="addFriend()">Sign Up</button>
+	  <button class="btn btn-secondary" @click="addFriend()">Add {{profile.name}}</button>
 	  <div class="wrapper">
         <div class="row">
           <div class="col-sm-8">
@@ -25,7 +25,7 @@
 		  	  Friends
 		    </h2>
 		    <div v-for="friend in friends" :key="friend.id">
-		  	  <router-link :to="{ name: 'profile', params: { id: friend.id }}" :id="friend.id">
+		  	  <router-link :to="{ name: 'profile', params: { id: friend.id }}">
 		        <h3>
 		          {{friend.name}}
 		        </h3>
@@ -77,7 +77,7 @@
         }, (error)  =>  {
           this.loading = false;
         })
-      }
+      },
     },
   }
 </script>

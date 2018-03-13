@@ -17,7 +17,8 @@
     components: { AppNav, AppFooter },
     data () {
       return {
-        auth: store.getters.isLoggedIn
+        auth: store.getters.isLoggedIn,
+        username: store.state.username
       }
     },
     methods: {
