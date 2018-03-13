@@ -10,7 +10,8 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "start": "node server.js",
     "heroku-postbuild": "npm install --only=dev --no-shrinkwrap && npm run build",
-    "postinstall": "npm install express"
+    "postinstall": "npm install express",
+    "deploy": "git subtree push — prefix dist heroku master"
   },
   "dependencies": {
     "axios": "^0.17.1",
