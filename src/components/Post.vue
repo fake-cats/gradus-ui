@@ -14,7 +14,7 @@
           </div>
           <div class="col-sm-8">
             <h1>{{ post.title }}</h1>
-            <router-link :to="{ name: 'profile', params: { id: post.user_id }}" :id="post.user_id">
+            <router-link :to="{ name: 'profile', params: { id: post.author_id }}" :id="post.author_id">
               <h3>by {{ post.author }}</h3>
             </router-link>
             <h3>votes {{ post.cached_votes_total }}</h3>

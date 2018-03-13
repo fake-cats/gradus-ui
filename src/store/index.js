@@ -81,12 +81,12 @@ export default new Vuex.Store({
       return new Promise(resolve => {
       HTTP.post('api/v0/sign_up', creds)
       .then(function (response) {
-            console.log(response.data.data.jwt)
-            var jwt = response.data.data['jwt'];
+            console.log(response.data.jwt)
+            var jwt = response.data['jwt'];
             localStorage.setItem('jwt', jwt)
             var userData = {
-              user: response.data.data.user,
-              jwt: response.data.data.jwt
+              user: response.data.user,
+              jwt: response.data.jwt
             }
             commit(LOGIN_SUCCESS, userData);
           })
