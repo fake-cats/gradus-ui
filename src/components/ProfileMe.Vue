@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
 <div class="profileme">
   <h1>
     {{profile.name}}
@@ -96,4 +96,4 @@
       }
     }
   }
-</script> -->
+</script>

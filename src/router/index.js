@@ -8,7 +8,7 @@ import Home from '../components/Home'
 import Post from '../components/Post'
 import CreatePost from '../components/CreatePost'
 import Profile from '../components/Profile'
-import ProfileMe from '../components/ProfileMe'
+import ProfileMe from '../components/ProfileMe.vue'
 
 
 
