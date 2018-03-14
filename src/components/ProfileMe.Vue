@@ -1,5 +1,5 @@
 <template>
-<div class="profile">
+<div class="profileme">
   <h1>
     {{profile.name}}
   </h1>
@@ -51,7 +51,7 @@
   });
 
   export default {
-    name: 'profile',
+    name: 'profileme',
     data () {
       return {
       	profile: {},
