@@ -30,7 +30,7 @@
   	          {{friendRequest.name}}
   	        </h3>
   	      </router-link>
-          <button class="btn btn-secondary" @click="acceptRequest()">Accept {{friendRequest.name}}</button>
+          <button class="btn btn-secondary" @click="acceptRequest(friendRequest.id)">Accept {{friendRequest.name}}</button>
   	    </div>
       </div>
     </div>
@@ -115,11 +115,11 @@
           this.loading = false;
         })
       },
-      acceptRequest: function () {
+      acceptRequest: function (id) {
         console.log("ACCEPT REQUEST");
         this.loading = true;
         HTTP.post('accept_request/', {
-          friend_id: friendRequests.id
+          friend_id: id
           },
           { 
             headers: { 
