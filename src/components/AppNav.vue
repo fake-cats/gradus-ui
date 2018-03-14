@@ -22,12 +22,10 @@
       </login> -->
       <ul>
         <!-- <router-link to="/createpost">Create Post</router-link> -->
-        <li>
-          <a href="#/profile">Profile</a>
-        </li>
-        <li>
-          <a href="#/createpost">Create Post</a>
-        </li>
+        <router-link :to="{ name: 'profileme', params: { username: username }}">
+          <a>Profile</a>
+        </router-link>
+        <router-link :to="{ name: 'createpost'}"><a>Create Post</a></router-link>
         <router-link to="/" exact>AppNav</router-link>
         <li v-if="isLoggedIn === false">
           <button class="btn btn-secondary" id="show-modal" @click="signupModal = true">Sign Up</button>
@@ -57,7 +55,8 @@
       return {
         loading: false,
         loginModal: false,
-        signupModal: false
+        signupModal: false,
+        username: store.state.username
       }
     },
     computed: {

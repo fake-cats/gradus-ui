@@ -26,7 +26,7 @@ const HTTP = axios.create({
 export default new Vuex.Store({
   state: {
     user: ANONYMOUS_USER,
-    username: localStorage.getItem('username') || ANONYMOUS_NAME,
+    username: localStorage.getItem('username'),
     isLoggedIn: !!localStorage.getItem('jwt'),
     jwt: localStorage.getItem('jwt') || DEFAULT_HEADERS,
     firstDegreePosts: []
@@ -65,6 +65,8 @@ export default new Vuex.Store({
           .then(function (response) {
             var jwt = response.data['jwt'];
             localStorage.setItem('jwt', jwt)
+            var username = response.data.user.name;
+            localStorage.setItem('username', username)
             var userData = {
               user: response.data.user,
               jwt: response.data.jwt

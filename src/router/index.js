@@ -8,12 +8,14 @@ import Home from '../components/Home'
 import Post from '../components/Post'
 import CreatePost from '../components/CreatePost'
 import Profile from '../components/Profile'
+import ProfileMe from '../components/ProfileMe'
 
 
 
 Vue.use(VueRouter)
 
 const router = new VueRouter({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -37,7 +39,13 @@ const router = new VueRouter({
       component: Profile
     },
     { 
-      path: '/createpost',
+      path: '/:username',
+      name: 'profileme',
+      beforeEnter: requireAuth,
+      component: ProfileMe
+    },
+    { 
+      path: '/create/post',
       name: 'createpost',
       beforeEnter: requireAuth,
       component: CreatePost

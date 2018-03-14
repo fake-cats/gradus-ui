@@ -56,7 +56,7 @@
       	profile: {},
       	friends: [],
       	posts: [],
-      	friend_id: this.$route.params.id,
+      	friend_id: this.friend_id,
       	loading: false
       }
     },
@@ -73,6 +73,7 @@
         .then((response)  =>  {
           this.loading = false;
           this.profile = response.data;
+          this.friend_id = response.data.id;
           this.friends = response.data.friends;
           this.posts = response.data.posts;
         }, (error)  =>  {
@@ -82,7 +83,6 @@
       addFriend: function () {
       	console.log("ADD FRIEND");
       	this.loading = true;
-      	var friend_id = this.$route.params.id;
       	HTTP.post('request_friend/', {
 	      friend_id: this.friend_id
 	  	  },
