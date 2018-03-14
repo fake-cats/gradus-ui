@@ -56,6 +56,7 @@
       	profile: {},
       	friends: [],
       	posts: [],
+      	friend_id: this.$route.params.id,
       	loading: false
       }
     },
@@ -68,7 +69,7 @@
         console.log("RUNNING GET PROFILE");
         this.loading = true;
         var profile_id = this.$route.params.id;
-        HTTP.get('/api/v0/users/' + profile_id)
+        HTTP.get('api/v0/users/' + profile_id)
         .then((response)  =>  {
           this.loading = false;
           this.profile = response.data;
@@ -78,6 +79,20 @@
           this.loading = false;
         })
       },
+      addFriend: function () {
+      	console.log("ADD FRIEND");
+      	this.loading = true;
+      	var friend_id = this.$route.params.id;
+      	HTTP.post('request_friend/', {
+	      friend_id: this.friend_id
+	  	  },
+	      { 
+	      	headers: { 
+	      		'Authorization': 'Bearer' + ' ' + store.state.jwt
+	      	}
+	      }
+	    )
+      }
     },
   }
 </script>
