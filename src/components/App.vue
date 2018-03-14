@@ -10,6 +10,7 @@
   import AppNav from './AppNav.vue'
   import AppFooter from './AppFooter.vue'
   import store from '../store'
+  import axios from 'axios'
   
   export default {
     name: 'app',

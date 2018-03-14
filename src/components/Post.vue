@@ -33,6 +33,14 @@
 <script>
   import axios from 'axios'
   import moment from 'moment'
+  import store from '../store'
+
+  const HTTP = axios.create({
+    baseURL: 'https://gradusunum-mainframe-api.herokuapp.com/',
+    headers: {
+      'Authorization': 'Bearer' + ' ' + store.state.jwt
+    }
+  });
 
   export default {
     name: 'post',
@@ -51,7 +59,7 @@
         console.log("RUNNING GET POST");
         this.loading = true;
         var postId = this.$route.params.id;
-        axios.get("https://gradusunum-mainframe-api.herokuapp.com/posts/" + postId, function (response) {
+        HTTP.get('posts/' + postId, function (response) {
           console.log("GETTING POST")
           console.log(response)
           this.$set('post', response.data)

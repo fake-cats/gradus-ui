@@ -36,12 +36,12 @@
 	import axios from 'axios'
 	import store from '../store'
 
-	const HTTP = axios.create({
-	  baseURL: 'https://gradusunum-mainframe-api.herokuapp.com/',
-	  headers: {
-	    'Authorization': 'Bearer' + ' ' + store.state.jwt
-	  }
-	});
+	  const HTTP = axios.create({
+	    baseURL: 'https://gradusunum-mainframe-api.herokuapp.com/',
+	    headers: {
+	      'Authorization': 'Bearer' + ' ' + store.state.jwt
+	    }
+	  });
 
 	export default {
 	  name: 'createpost',

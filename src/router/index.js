@@ -36,7 +36,13 @@ const router = new VueRouter({
       path: '/profile/:id',
       name: 'profile',
       beforeEnter: requireAuth,
-      component: Profile
+      component: Profile,
+      meta: {
+        beforeEach: (to, from, next) => {
+            store.dispatch('fetchRequest', to.params.id);
+            next();
+        }
+      }
     },
     { 
       path: '/:username',
@@ -52,6 +58,21 @@ const router = new VueRouter({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+    let isDelegated = false;
+
+    for (let matched = (to.matched || []), i = matched.length; i--;) {
+        let route = matched[i];
+
+        if (route.meta.beforeEach) {
+            isDelegated = true;
+            route.meta.beforeEach(to, from, next);
+        }
+    }
+
+    !isDelegated && next();
+});
 
 function requireAuth (to, from, next) {
   if (store.getters.isLoggedIn === false) {

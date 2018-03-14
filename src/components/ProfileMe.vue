@@ -22,15 +22,16 @@
       </div>
       <div class="col-sm-4">
       	<h2>
-	  	  Friends
-	    </h2>
-	    <div v-for="friend in friends" :key="friend.id">
-	  	  <router-link :to="{ name: 'profile', params: { id: friend.id }}">
-	        <h3>
-	          {{friend.name}}
-	        </h3>
-	      </router-link>
-	    </div>
+  	  	  Friend Requests
+  	    </h2>
+        <div v-for="friendRequest in friendRequests" :key="friendRequest.id">
+  	  	  <router-link :to="{ name: 'profile', params: { id: friendRequest.id }}">
+  	        <h3>
+  	          {{friendRequest.name}}
+  	        </h3>
+  	      </router-link>
+          <button class="btn btn-secondary" @click="acceptRequest()">Accept {{friendRequest.name}}</button>
+  	    </div>
       </div>
     </div>
   </div>
@@ -46,7 +47,7 @@
   const HTTP = axios.create({
     baseURL: 'https://gradusunum-mainframe-api.herokuapp.com/',
     headers: {
-      'Content-Type': 'application/json',
+      'Authorization': 'Bearer' + ' ' + store.state.jwt
     }
   });
 
@@ -56,14 +57,17 @@
       return {
       	profile: {},
       	friends: [],
+        friendRequests: [],
       	posts: [],
       	friend_id: this.$route.params.id,
+        profile_id: store.state.profile_id,
       	loading: false
       }
     },
     beforeMount () {
       console.log("BEFORE MOUNT")
       this.getProfile()
+      this.requestedFriends()
     },
     methods: {
       getProfile: function () {
@@ -85,15 +89,45 @@
       	console.log("ADD FRIEND");
       	this.loading = true;
       	HTTP.post('request_friend/', {
-	      friend_id: this.friend_id
-	  	  },
-	      { 
-	      	headers: { 
-	      		'Authorization': 'Bearer' + ' ' + store.state.jwt
-	      	}
-	      }
-	    )
-      }
+  	      id: store.state.profile_id
+  	  	  },
+  	      { 
+  	      	headers: { 
+  	      		'Authorization': 'Bearer' + ' ' + store.state.jwt
+  	      	}
+  	      }
+  	    )
+      },
+      requestedFriends: function () {
+        console.log("REQUESTED FRIENDS");
+        this.loading = true;
+        HTTP.get('requested_friends/', 
+          { 
+            headers: { 
+              'Authorization': 'Bearer' + ' ' + store.state.jwt
+            }
+          }
+        )
+        .then((response)  =>  {
+          this.loading = false;
+          this.friendRequests = response.data;
+        }, (error)  =>  {
+          this.loading = false;
+        })
+      },
+      acceptRequest: function () {
+        console.log("ACCEPT REQUEST");
+        this.loading = true;
+        HTTP.post('accept_request/', {
+          friend_id: friendRequests.id
+          },
+          { 
+            headers: { 
+              'Authorization': 'Bearer' + ' ' + store.state.jwt
+            }
+          }
+        )
+      },
     }
   }
 </script>

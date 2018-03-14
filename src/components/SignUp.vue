@@ -73,7 +73,7 @@
 
     methods: {
       submit() {
-        store.dispatch("signup", {
+        store.dispatch('signup', {
           name: this.name,
           email: this.email,
           password: this.password

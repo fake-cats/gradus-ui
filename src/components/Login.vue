@@ -98,7 +98,7 @@
 
     methods: {
       submit() {
-        store.dispatch("login", {
+        store.dispatch('login', {
           email: this.credentials.email,
           password: this.credentials.password
         });

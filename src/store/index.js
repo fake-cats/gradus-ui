@@ -27,6 +27,7 @@ export default new Vuex.Store({
   state: {
     user: ANONYMOUS_USER,
     username: localStorage.getItem('username'),
+    profile_id: localStorage.getItem('profile_id'),
     isLoggedIn: !!localStorage.getItem('jwt'),
     jwt: localStorage.getItem('jwt') || DEFAULT_HEADERS,
     firstDegreePosts: []
@@ -39,6 +40,7 @@ export default new Vuex.Store({
       state.user = data.user;
       state.jwt = data.jwt;
       state.username = data.user.name;
+      state.profile_id = data.user.id;
       state.isLoggedIn = true;
       state.pending = false;
     },
@@ -46,6 +48,7 @@ export default new Vuex.Store({
       state.user = ANONYMOUS_USER;
       state.jwt = null;
       state.username = ANONYMOUS_NAME;
+      state.profile_id = null;
       state.isLoggedIn = false;
     },
     [FIRST_DEGREE_POSTS](state, data) {
@@ -67,6 +70,8 @@ export default new Vuex.Store({
             localStorage.setItem('jwt', jwt)
             var username = response.data.user.name;
             localStorage.setItem('username', username)
+            var profile_id = response.data.user.id;
+            localStorage.setItem('profile_id', profile_id)
             var userData = {
               user: response.data.user,
               jwt: response.data.jwt

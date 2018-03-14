@@ -25,7 +25,7 @@
 		  	  Friends
 		    </h2>
 		    <div v-for="friend in friends" :key="friend.id">
-		  	  <router-link :to="{ name: 'profile', params: { id: friend.id }}">
+		  	  <router-link :to="{ name: 'profile', params: { id: friend.id }}" :key="$route.params.id">
 		        <h3>
 		          {{friend.name}}
 		        </h3>
@@ -34,6 +34,7 @@
           </div>
         </div>
       </div>
+      <router-view :key="$route.params.id"></router-view>
 	</div>
 </template>
 
@@ -42,10 +43,10 @@
   import moment from 'moment'
   import store from '../store'
 
-  const HTTP = axios.create({
+   const HTTP = axios.create({
     baseURL: 'https://gradusunum-mainframe-api.herokuapp.com/',
     headers: {
-      'Content-Type': 'application/json',
+      'Authorization': 'Bearer' + ' ' + store.state.jwt
     }
   });
 
@@ -92,8 +93,14 @@
 	      	}
 	      }
 	    )
-      }
+      },
     },
+    watch: {
+	  $route(to, from) {
+	    // to holds where they are going
+	    // from holds where they are coming from
+	  },
+	}
   }
 </script>
 

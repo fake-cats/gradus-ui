@@ -33,6 +33,12 @@
   import moment from 'moment'
   import store from '../store'
 
+  const HTTP = axios.create({
+    baseURL: 'https://gradusunum-mainframe-api.herokuapp.com/',
+    headers: {
+      'Authorization': 'Bearer' + ' ' + store.state.jwt
+    }
+  });
   
   export default {
     name: 'home',
@@ -63,7 +69,7 @@
     methods: {
       getPosts: function () {
         this.loading = true;
-        axios.get("https://gradusunum-mainframe-api.herokuapp.com/posts")
+        HTTP.get('posts')
         .then((response)  =>  {
           this.loading = false;
           this.posts = response.data;
