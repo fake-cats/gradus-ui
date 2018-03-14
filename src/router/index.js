@@ -8,7 +8,7 @@ import Home from '../components/Home'
 import Post from '../components/Post'
 import CreatePost from '../components/CreatePost'
 import Profile from '../components/Profile'
-import ProfileMe from '../components/ProfileMe'
+// import ProfileMe from '../components/ProfileMe'
 
 
 
@@ -38,12 +38,12 @@ const router = new VueRouter({
       beforeEnter: requireAuth,
       component: Profile
     },
-    { 
-      path: '/:username',
-      name: 'profileme',
-      beforeEnter: requireAuth,
-      component: ProfileMe
-    },
+    // { 
+    //   path: '/:username',
+    //   name: 'profileme',
+    //   beforeEnter: requireAuth,
+    //   component: ProfileMe
+    // },
     { 
       path: '/create/post',
       name: 'createpost',
