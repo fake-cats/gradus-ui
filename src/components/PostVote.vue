@@ -34,32 +34,62 @@
       postUpVote() {
 	  	console.log("UPVOTE")
 	  	var postId = this.$route.params.id;
-	    HTTP.post('posts/' + postId + '/upvote', {
+	  	var isUpVote = this.isUpVote;
+	  	if (isUpVote === false) {
+	      HTTP.post('posts/' + postId + '/upvote', {
 	      	headers: { 
 	      		'Authorization': 'Bearer' + ' ' + store.state.jwt
-	      	}
-	      }
-	    )
-	    .then((response)  =>  {
-          this.loading = false;
-          this.isUpVote = true;
-          this.isDownVote = false;
-        })
+	      	  }
+	        }
+	      )
+	      .then((response)  =>  {
+            this.loading = false;
+            this.isUpVote = true;
+            this.isDownVote = false;
+          })
+		} else {
+		    HTTP.post('posts/' + postId + '/unupvote', {
+	      	headers: { 
+	      		'Authorization': 'Bearer' + ' ' + store.state.jwt
+	      	  }
+	        }
+	      )
+	      .then((response)  =>  {
+            this.loading = false;
+            this.isUpVote = false;
+            this.isDownVote = false;
+          })
+		}
 	  },
 	  postDownVote() {
 	  	console.log("DOWNVOTE")
 	  	var postId = this.$route.params.id;
-	    HTTP.post('posts/' + postId + '/downvote', {
+	  	var isDownVote = this.isDownVote;
+	  	if (isDownVote === false) {
+	      HTTP.post('posts/' + postId + '/downvote', {
 	      	headers: { 
 	      		'Authorization': 'Bearer' + ' ' + store.state.jwt
-	      	}
-	      }
-	    )
-	    .then((response)  =>  {
-          this.loading = false;
-          this.isDownVote = true;
-          this.isUpVote = false;
-        })
+	      	  }
+	        }
+	      )
+	      .then((response)  =>  {
+            this.loading = false;
+            this.isUpVote = false;
+            this.isDownVote = true;
+          })
+		} else {
+		    HTTP.post('posts/' + postId + '/undownvote', {
+	      	headers: { 
+	      		'Authorization': 'Bearer' + ' ' + store.state.jwt
+	      	  }
+	        }
+	      )
+	      .then((response)  =>  {
+            this.loading = false;
+            this.isUpVote = false;
+            this.isDownVote = false;
+          })
+		}
 	  }
     },
   }

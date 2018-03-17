@@ -10,7 +10,7 @@ import CreatePost from '../components/CreatePost'
 import Profile from '../components/Profile'
 import ProfileMe from '../components/ProfileMe'
 import Comments from '../components/Comments'
-import commentcreate from '../components/CommentCreate'
+import CommentCreate from '../components/CommentCreate'
 
 
 

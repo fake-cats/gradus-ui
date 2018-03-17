@@ -10,7 +10,7 @@
         <div class="row">
           <div v-for="post in posts" :key="post.id">
             <div class="col-sm-4 cards">
-              <router-link :to="{ name: 'post', params: { id: post.id }}">
+              <router-link :to="{ name: 'post', params: { id: post.id }}" class="postDescription">
                <img src="https://i.redd.it/m2n3tfwiidk01.jpg" class="img-responsive" alt="Random images placeholder"/> 
               <div class="post">
                 <h3>{{ post.id }}</h3>
@@ -18,6 +18,8 @@
                 <p>{{ post.created_at | formatUtc }}</p>
               </div>
               </router-link>
+              <postvote></postvote>
+              <p>votes {{ post.cached_votes_total }}</p>
             </div>
           </div>
         </div>
@@ -32,6 +34,7 @@
   import axios from 'axios'
   import moment from 'moment'
   import store from '../store'
+  import postvote from './PostVote'
 
   const HTTP = axios.create({
     baseURL: 'https://gradusunum-mainframe-api.herokuapp.com/',
@@ -96,6 +99,9 @@
         return auth.user.authenticated
       }
     },
+    components: {
+      postvote: postvote
+    }
   }
 </script>
 
@@ -148,11 +154,16 @@
 
   .post p {
     font-family: 'Merriweather', serif;
+    height: 40px;
+    overflow: hidden;
+  }
+
+  .post {
+    height: 90px;
   }
 
   .cards img {
     display:block;
     margin:auto;
   }
-
 </style>
