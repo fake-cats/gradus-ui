@@ -1,7 +1,12 @@
 <template>
   <div class="comments col-sm-10 col-sm-offset-1">
     <main>
-    <commentcreate></commentcreate>
+    <div v-if="isLoggedIn === true" class="postcomment">
+      <commentcreate></commentcreate>
+    </div>
+    <div v-else>
+      Sign in to comment
+    </div>
     <div class="loading" v-if="loading">
       Loading...
     </div>
@@ -43,6 +48,11 @@
     beforeMount () {
       console.log("COMMENTS")
       this.getComments()
+    },
+    computed: {
+      isLoggedIn () {
+        return store.getters.isLoggedIn
+      }
     },
     methods: {
       getComments: function () {

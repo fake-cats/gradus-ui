@@ -60,6 +60,11 @@
       console.log("BEFORE MOUNT")
       this.getPost()
     },
+    computed: {
+      isLoggedIn () {
+        return store.getters.isLoggedIn
+      }
+    },
     methods: {
       getPost: function () {
         console.log("RUNNING GET POST");

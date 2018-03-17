@@ -21,14 +21,13 @@
         <h3 slot="header">Login</h3>
       </login> -->
       <ul>
-        <div v-if="isLoggedIn === true" class="navatar">
-        </div>
+        <router-link class="navvy" to="/" exact>
+          <img src="https://3.bp.blogspot.com/-ElkEhTV4rgs/V0OSpOYMrnI/AAAAAAAAA9o/lxqm4OG87HonevjiY1BUH3aIIM4K2_V5gCLcB/s1600/R.jpg" alt="logo">
+        </router-link>
         <!-- <router-link to="/createpost">Create Post</router-link> -->
         <!-- <router-link :to="{ name: 'profileme', params: { username: username }}">
           <a>Profile</a>
         </router-link> -->
-        <router-link :to="{ name: 'createpost'}"><a>Create Post</a></router-link>
-        <router-link to="/" exact>Home</router-link>
         <div v-if="isLoggedIn === false" class="login">
           <button class="btn btn-secondary" id="show-modal" @click="signupModal = true">Sign Up</button>
           <button class="btn btn-secondary" id="show-modal" @click="loginModal = true">Login</button>
@@ -238,20 +237,27 @@
     .sidenav a {font-size: 18px;}
   }
 
-  .navatar {
+  .logo {
+  }
+
+  .navvy {
     position: absolute;
     left: 20px;
-    top: 10px;
+    top: 8px;
+  }
+  .navvy img {
+    height: 34px;
+    border-radius: 50%;
   }
 
   .login img {
-    height: 30px;
+    height: 34px;
     border-radius: 50%;
   }
 
   .login {
     right: 20px;
-    top: 10px;
+    top: 8px;
     height: 50px;
     margin: 0;
     position: absolute;

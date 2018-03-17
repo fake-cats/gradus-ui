@@ -1,5 +1,5 @@
 <template>
-  <div class="createpost"> 
+  <div v-if="isLoggedIn === true" class="createpost"> 
 	  <div class="col-sm-2">
 
 	  </div>
@@ -52,7 +52,11 @@
 	      errors: []
 	    }
 	  },
-
+	  computed: {
+        isLoggedIn () {
+          return store.getters.isLoggedIn
+        }
+      },
 	  methods: {
 
 		  // Pushes posts to the server when called.

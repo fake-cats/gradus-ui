@@ -27,14 +27,7 @@ const router = new VueRouter({
     { 
       path: '/post/:id',
       name: 'post',
-      beforeEnter: requireAuth,
       component: Post
-      // children: [
-      //   {
-      //     path: 'comments',
-      //     component: Comments
-      //   },
-      // ]
     },
     { 
       path: '/login', 
