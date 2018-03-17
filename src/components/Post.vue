@@ -11,13 +11,14 @@
         <div class="col-sm-12 cards">
           <div class="col-sm-4">
              <img src="https://i.redd.it/m2n3tfwiidk01.jpg" class="img-responsive" alt="Random images placeholder">
+             <postvote></postvote>
+             <h3>votes {{ post.cached_votes_total }}</h3>
           </div>
           <div class="col-sm-8">
             <h1>{{ post.title }}</h1>
-            <router-link :to="{ name: 'profile', params: { id: post.author_id }}" :id="post.author_id">
+            <router-link :to="{ name: 'profile', params: { id: author_id }}" :id="author_id">
               <h3>by {{ post.author }}</h3>
             </router-link>
-            <h3>votes {{ post.cached_votes_total }}</h3>
             <p>{{ post.created_at | formatUtc }}</p>
             <p>{{ post.body }}</p>
             <p>{{ post.user_id }}</p>
@@ -25,6 +26,7 @@
         </div>
       </div>
     </div>
+      <comments></comments>
     </main>
   </div>
 </template>
@@ -34,6 +36,8 @@
   import axios from 'axios'
   import moment from 'moment'
   import store from '../store'
+  import postvote from './PostVote'
+  import comments from './Comments'
 
   const HTTP = axios.create({
     baseURL: 'https://gradusunum-mainframe-api.herokuapp.com/',
@@ -47,6 +51,7 @@
     data () {
       return {
         post: '',
+        author_id: {},
         loading: false
       }
     },
@@ -67,6 +72,7 @@
         .then((response)  =>  {
           this.loading = false;
           this.post = response.data;
+          this.author_id = response.data.author_id;
         }, (error)  =>  {
           this.loading = false;
         })
@@ -86,6 +92,10 @@
         return auth.user.authenticated
       }
     },
+    components: { 
+      comments: comments,
+      postvote: postvote
+    }
   }
 </script>
 

@@ -3,7 +3,12 @@
 	  <h1>
 	    {{profile.name}}
 	  </h1>
-	  <button class="btn btn-secondary" @click="addFriend()">Add {{profile.name}}</button>
+	  <div v-if="addSuccess === false">
+	    <button class="btn btn-secondary" @click="addFriend()">Add {{profile.name}}</button>
+	  </div>
+	  <div v-else>
+	  	<button class="btn btn-secondary">Success!</button>
+	  </div>
 	  <div class="wrapper">
         <div class="row">
           <div class="col-sm-8">
@@ -30,11 +35,12 @@
 		          {{friend.name}}
 		        </h3>
 		      </router-link>
+		      <router-view :key="$route.fullPath"></router-view>
 		    </div>
           </div>
         </div>
       </div>
-      <router-view :key="$route.params.id"></router-view>
+      <comments></comments>
 	</div>
 </template>
 
@@ -52,12 +58,14 @@
 
   export default {
     name: 'profile',
+    props: this.id,
     data () {
       return {
       	profile: {},
       	friends: [],
       	posts: [],
-      	friend_id: this.friend_id,
+      	id: this.$route.params.id,
+      	addSuccess: false,
       	loading: false
       }
     },
@@ -81,6 +89,10 @@
           this.loading = false;
         })
       },
+      updateProfile: function () {
+        console.log("RUNNING UPDATE PROFILE");
+        var profile_id = this.$route.fullPath;
+      },
       addFriend: function () {
       	console.log("ADD FRIEND");
       	this.loading = true;
@@ -93,14 +105,18 @@
 	      	}
 	      }
 	    )
+	    .then((response)  =>  {
+		  this.addSuccess = true;
+		})
       },
     },
-    watch: {
-	  $route(to, from) {
-	    // to holds where they are going
-	    // from holds where they are coming from
-	  },
-	}
+    filters: {
+      formatUtc: function (value) {
+        if (value) {
+          return moment.utc(value).format('MMM Do YYYY hh:mm')
+        }
+      }
+    },
   }
 </script>
 

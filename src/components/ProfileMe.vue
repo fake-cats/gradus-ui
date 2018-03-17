@@ -1,9 +1,8 @@
 <template>
 <div class="profileme">
   <h1>
-    {{profile.name}}
+    {{username}}
   </h1>
-  <button class="btn btn-secondary" @click="addFriend()">Add {{profile.name}}</button>
   <div class="wrapper">
     <div class="row">
       <div class="col-sm-8">
@@ -30,7 +29,12 @@
   	          {{friendRequest.name}}
   	        </h3>
   	      </router-link>
-          <button class="btn btn-secondary" @click="acceptRequest(friendRequest.id)">Accept {{friendRequest.name}}</button>
+          <div v-if="friendSuccess === false">
+            <button class="btn btn-secondary" @click="acceptRequest(friendRequest.id)">Accept {{friendRequest.name}}</button>
+          </div>
+          <div v-else>
+            <button class="btn btn-secondary">Feeling less lonely?</button>
+          </div>
   	    </div>
       </div>
     </div>
@@ -61,6 +65,8 @@
       	posts: [],
       	friend_id: this.$route.params.id,
         profile_id: store.state.profile_id,
+        username: store.state.username,
+        friendSuccess: false,
       	loading: false
       }
     },
@@ -73,7 +79,7 @@
       getProfile: function () {
         console.log("RUNNING GET PROFILE");
         this.loading = true;
-        var profile_id = this.$route.params.id;
+        var profile_id = store.state.profile_id;
         HTTP.get('api/v0/users/' + profile_id)
         .then((response)  =>  {
           this.loading = false;
@@ -127,7 +133,24 @@
             }
           }
         )
+        .then((response)  =>  {
+          this.friendSuccess = true;
+        })
       },
-    }
+    },
+    filters: {
+      formatUtc: function (value) {
+        if (value) {
+          return moment.utc(value).format('MMM Do YYYY hh:mm')
+        }
+      }
+    },
   }
 </script>
+
+<style>
+  .profileme {
+    padding-top: 60px;
+  }
+  
+</style>

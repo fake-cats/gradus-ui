@@ -9,6 +9,8 @@ import Post from '../components/Post'
 import CreatePost from '../components/CreatePost'
 import Profile from '../components/Profile'
 import ProfileMe from '../components/ProfileMe'
+import Comments from '../components/Comments'
+import commentcreate from '../components/CommentCreate'
 
 
 
@@ -27,6 +29,12 @@ const router = new VueRouter({
       name: 'post',
       beforeEnter: requireAuth,
       component: Post
+      // children: [
+      //   {
+      //     path: 'comments',
+      //     component: Comments
+      //   },
+      // ]
     },
     { 
       path: '/login', 
@@ -37,12 +45,7 @@ const router = new VueRouter({
       name: 'profile',
       beforeEnter: requireAuth,
       component: Profile,
-      meta: {
-        beforeEach: (to, from, next) => {
-            store.dispatch('fetchRequest', to.params.id);
-            next();
-        }
-      }
+      props: true
     },
     { 
       path: '/:username',
@@ -55,7 +58,8 @@ const router = new VueRouter({
       name: 'createpost',
       beforeEnter: requireAuth,
       component: CreatePost
-    }
+    },
+    { path: '*', component: CreatePost }
   ]
 })
 
