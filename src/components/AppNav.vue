@@ -45,12 +45,12 @@
     </nav>
     <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
-      <router-link :to="{ name: 'profileme', params: { username: username }}">
+      <router-link :to="{ name: 'profileme', params: { username: username }}" v-on:click.native="closeNav()">
         Profile
       </router-link>
-      <router-link :to="{ name: 'createpost'}" @click="closeNav()">Create Post</router-link>
-      <a href="#" @click="closeNav()">Friends</a>
-      <a href="#" @click="closeNav()">Posts</a>
+      <router-link :to="{ name: 'createpost'}" v-on:click.native="closeNav()">Create Post</router-link>
+      <router-link :to="{ name: 'profileme', params: { username: username }}" v-on:click.native="closeNav()">Friends</router-link>
+      <router-link :to="{ name: 'profileme', params: { username: username }}" v-on:click.native="closeNav()">Posts</router-link>
       <a @click="logout()">Sign Out</a>
     </div>
   </header>
@@ -77,10 +77,16 @@
       }
     },
     methods: {
+      closeNav() {
+        var avatarActive = this.avatarActive;
+        document.getElementById("mySidenav").style.width = "0";
+        this.avatarActive = false;
+      },
       logout() {
         console.log("LOGOUT")
         store.dispatch("logout");
-        this.loggedIn = false
+        this.loggedIn = false,
+        this.closeNav()
       },
       toggleSidebar() {
         var avatarActive = this.avatarActive;
@@ -91,12 +97,7 @@
           document.getElementById("mySidenav").style.width = "0";
           this.avatarActive = false;
         }
-      },
-      closeNav() {
-        var avatarActive = this.avatarActive;
-        document.getElementById("mySidenav").style.width = "0";
-        this.avatarActive = false;
-      },
+      }
     },
     components: { 
       login: login,
