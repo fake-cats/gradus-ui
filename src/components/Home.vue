@@ -6,7 +6,7 @@
         Loading.....
       </div>
 
-      <div class="wrapper">
+      <div class="container">
         <div class="row">
           <div v-for="post in posts" :key="post.id">
             <div class="col-sm-4 cards">
@@ -18,8 +18,10 @@
                 <p>{{ post.created_at | formatUtc }}</p>
               </div>
               </router-link>
-              <postvote></postvote>
-              <p>votes {{ post.cached_votes_total }}</p>
+              <div class="votes col-sm-12">
+                <postvote></postvote>
+                <p class="votecount">votes {{ post.cached_votes_total }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -165,5 +167,15 @@
   .cards img {
     display:block;
     margin:auto;
+  }
+
+  .postvote {
+    margin: 0 auto;
+  }
+
+  .votes {
+    position: absolute;
+    bottom: 5px;
+    text-align: right;
   }
 </style>

@@ -6,7 +6,7 @@
       Loading...
     </div>
 
-    <div class="wrapper">
+    <div class="container">
       <div class="row">
         <div class="col-sm-12 cards">
           <div class="col-sm-4">
@@ -52,6 +52,7 @@
       return {
         post: '',
         author_id: {},
+        post_id: {},
         loading: false
       }
     },
@@ -72,6 +73,7 @@
         .then((response)  =>  {
           this.loading = false;
           this.post = response.data;
+          this.post_id = response.data.id;
           this.author_id = response.data.author_id;
         }, (error)  =>  {
           this.loading = false;
@@ -128,7 +130,7 @@
 
   .cards {
     background: #F5F5F5;
-    height:400px;
+    min-height:250px;
   }
    .cards:hover {
     transform: translateY(-0.5em);

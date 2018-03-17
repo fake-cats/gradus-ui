@@ -1,5 +1,5 @@
 <template>
-  <div class="comments">
+  <div class="comments col-sm-10 col-sm-offset-1">
     <main>
     <commentcreate></commentcreate>
     <div class="loading" v-if="loading">

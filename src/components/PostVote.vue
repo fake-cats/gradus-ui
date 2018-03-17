@@ -97,7 +97,10 @@
 
  <style scoped>
  	.postvote {
-		padding-top: 50px;
+	  position: absolute;
+	  bottom: 0;
+	  padding-bottom: 5px;
+	  
  	}
 
  	.green {
