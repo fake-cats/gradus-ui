@@ -21,19 +21,20 @@
         <h3 slot="header">Login</h3>
       </login> -->
       <ul>
-        <img src="https://images-na.ssl-images-amazon.com/images/G/01/aplusautomation/vendorimages/b6805169-4fe8-4bad-8e1a-3c67dac2f1a6.jpg._CB304351440__SL220__.jpg" class="avatar" alt="Avatar" @click="toggleSidebar()">
+        <div v-if="isLoggedIn === true" class="navatar">
+        </div>
         <!-- <router-link to="/createpost">Create Post</router-link> -->
         <!-- <router-link :to="{ name: 'profileme', params: { username: username }}">
           <a>Profile</a>
         </router-link> -->
         <router-link :to="{ name: 'createpost'}"><a>Create Post</a></router-link>
         <router-link to="/" exact>Home</router-link>
-        <div v-if="isLoggedIn === false">
+        <div v-if="isLoggedIn === false" class="login">
           <button class="btn btn-secondary" id="show-modal" @click="signupModal = true">Sign Up</button>
           <button class="btn btn-secondary" id="show-modal" @click="loginModal = true">Login</button>
         </div>
         <div v-else class="login">
-          <button class="btn btn-secondary" v-on:click="logout()">Log out</button>
+          <img src="https://images-na.ssl-images-amazon.com/images/G/01/aplusautomation/vendorimages/b6805169-4fe8-4bad-8e1a-3c67dac2f1a6.jpg._CB304351440__SL220__.jpg" class="avatar" alt="Avatar" @click="toggleSidebar()">
         </div>
       </ul>
       <login v-if="loginModal" @close="loginModal = false">
@@ -48,7 +49,7 @@
       <router-link :to="{ name: 'profileme', params: { username: username }}">
         Profile
       </router-link>
-      <router-link :to="{ name: 'createpost'}"  @click="closeNav()">Create Post</router-link>
+      <router-link :to="{ name: 'createpost'}" @click="closeNav()">Create Post</router-link>
       <a href="#" @click="closeNav()">Friends</a>
       <a href="#" @click="closeNav()">Posts</a>
       <a @click="logout()">Sign Out</a>
@@ -195,7 +196,7 @@
       position: fixed; /* Stay in place */
       z-index: 1; /* Stay on top */
       top: 20px; /* Stay at the top */
-      left: 0;
+      right: 0;
       background-color: #111; /* Black*/
       overflow-x: hidden; /* Disable horizontal scroll */
       padding-top: 60px; /* Place content 60px from the top */
@@ -210,7 +211,7 @@
       color: #818181;
       display: block;
       transition: 0.3s;
-      text-align: left;
+      text-align: right;
   }
 
   /* When you mouse over the navigation links, change their color */
@@ -222,7 +223,7 @@
   .sidenav .closebtn {
       position: absolute;
       top: 30px;
-      right: 25px;
+      right: 200px;
       font-size: 36px;
       margin-left: 50px;
   }
@@ -237,12 +238,15 @@
     .sidenav a {font-size: 18px;}
   }
 
-  .avatar {
-    border-radius: 50%;
-    height: 30px;
+  .navatar {
     position: absolute;
     left: 20px;
     top: 10px;
+  }
+
+  .login img {
+    height: 30px;
+    border-radius: 50%;
   }
 
   .login {
