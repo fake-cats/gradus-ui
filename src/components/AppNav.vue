@@ -21,19 +21,20 @@
         <h3 slot="header">Login</h3>
       </login> -->
       <ul>
+        <img src="https://images-na.ssl-images-amazon.com/images/G/01/aplusautomation/vendorimages/b6805169-4fe8-4bad-8e1a-3c67dac2f1a6.jpg._CB304351440__SL220__.jpg" class="avatar" alt="Avatar" @click="openNav()">
         <!-- <router-link to="/createpost">Create Post</router-link> -->
-        <router-link :to="{ name: 'profileme', params: { username: username }}">
+        <!-- <router-link :to="{ name: 'profileme', params: { username: username }}">
           <a>Profile</a>
-        </router-link>
+        </router-link> -->
         <router-link :to="{ name: 'createpost'}"><a>Create Post</a></router-link>
         <router-link to="/" exact>AppNav</router-link>
-        <li v-if="isLoggedIn === false">
+        <div v-if="isLoggedIn === false">
           <button class="btn btn-secondary" id="show-modal" @click="signupModal = true">Sign Up</button>
           <button class="btn btn-secondary" id="show-modal" @click="loginModal = true">Login</button>
-        </li>
-        <li v-else>
+        </div>
+        <div v-else class="login">
           <button class="btn btn-secondary" v-on:click="logout()">Log out</button>
-        </li>
+        </div>
       </ul>
       <login v-if="loginModal" @close="loginModal = false">
         <h3 slot="header">Login</h3>
@@ -42,6 +43,15 @@
         <h3 slot="header">Sign Up</h3>
       </signup>
     </nav>
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
+      <router-link :to="{ name: 'profileme', params: { username: username }}">
+        Profile
+      </router-link>
+      <a href="#">Friends</a>
+      <a href="#">Posts</a>
+      <a @click="logout()">Sign Out</a>
+    </div>
   </header>
 </template>
 
@@ -69,6 +79,12 @@
         console.log("LOGOUT")
         store.dispatch("logout");
         this.loggedIn = false
+      },
+      openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+      },
+      closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
       }
     },
     components: { 
@@ -167,7 +183,7 @@
       width: 0; /* 0 width - change this with JavaScript */
       position: fixed; /* Stay in place */
       z-index: 1; /* Stay on top */
-      top: 0; /* Stay at the top */
+      top: 20px; /* Stay at the top */
       left: 0;
       background-color: #111; /* Black*/
       overflow-x: hidden; /* Disable horizontal scroll */
@@ -183,6 +199,7 @@
       color: #818181;
       display: block;
       transition: 0.3s;
+      text-align: left;
   }
 
   /* When you mouse over the navigation links, change their color */
@@ -193,10 +210,36 @@
   /* Position and style the close button (top right corner) */
   .sidenav .closebtn {
       position: absolute;
-      top: 0;
+      top: 30px;
       right: 25px;
       font-size: 36px;
       margin-left: 50px;
+  }
+
+  .navMain {
+    height: 0px;
+    width: 200px;
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 60px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+  .avatar {
+    border-radius: 50%;
+    height: 30px;
+    position: absolute;
+    left: 20px;
+    top: 10px;
+  }
+
+  .login {
+    right: 20px;
+    top: 10px;
+    height: 50px;
+    margin: 0;
+    position: absolute;
   }
 </style>
 
