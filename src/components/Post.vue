@@ -101,7 +101,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   body {
     margin: 0;
   }
@@ -142,7 +142,7 @@
     font-weight: bold;
     column-count: 1;
     column-gap: 1em;
-    margin-top: 70px;
+    margin-top: 25px;
 
   }
 </style>

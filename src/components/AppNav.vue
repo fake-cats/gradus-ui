@@ -21,13 +21,13 @@
         <h3 slot="header">Login</h3>
       </login> -->
       <ul>
-        <img src="https://images-na.ssl-images-amazon.com/images/G/01/aplusautomation/vendorimages/b6805169-4fe8-4bad-8e1a-3c67dac2f1a6.jpg._CB304351440__SL220__.jpg" class="avatar" alt="Avatar" @click="openNav()">
+        <img src="https://images-na.ssl-images-amazon.com/images/G/01/aplusautomation/vendorimages/b6805169-4fe8-4bad-8e1a-3c67dac2f1a6.jpg._CB304351440__SL220__.jpg" class="avatar" alt="Avatar" @click="toggleSidebar()">
         <!-- <router-link to="/createpost">Create Post</router-link> -->
         <!-- <router-link :to="{ name: 'profileme', params: { username: username }}">
           <a>Profile</a>
         </router-link> -->
         <router-link :to="{ name: 'createpost'}"><a>Create Post</a></router-link>
-        <router-link to="/" exact>AppNav</router-link>
+        <router-link to="/" exact>Home</router-link>
         <div v-if="isLoggedIn === false">
           <button class="btn btn-secondary" id="show-modal" @click="signupModal = true">Sign Up</button>
           <button class="btn btn-secondary" id="show-modal" @click="loginModal = true">Login</button>
@@ -48,8 +48,9 @@
       <router-link :to="{ name: 'profileme', params: { username: username }}">
         Profile
       </router-link>
-      <a href="#">Friends</a>
-      <a href="#">Posts</a>
+      <router-link :to="{ name: 'createpost'}"  @click="closeNav()">Create Post</router-link>
+      <a href="#" @click="closeNav()">Friends</a>
+      <a href="#" @click="closeNav()">Posts</a>
       <a @click="logout()">Sign Out</a>
     </div>
   </header>
@@ -64,6 +65,7 @@
     data () {
       return {
         loading: false,
+        avatarActive: false,
         loginModal: false,
         signupModal: false,
         username: store.state.username
@@ -80,12 +82,21 @@
         store.dispatch("logout");
         this.loggedIn = false
       },
-      openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
+      toggleSidebar() {
+        var avatarActive = this.avatarActive;
+        if (avatarActive === false) {
+          document.getElementById("mySidenav").style.width = "250px";
+          this.avatarActive = true;
+        } else {
+          document.getElementById("mySidenav").style.width = "0";
+          this.avatarActive = false;
+        }
       },
       closeNav() {
+        var avatarActive = this.avatarActive;
         document.getElementById("mySidenav").style.width = "0";
-      }
+        this.avatarActive = false;
+      },
     },
     components: { 
       login: login,
