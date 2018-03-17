@@ -45,6 +45,7 @@
     </nav>
     <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
+      <router-link to="/" exact>Home</router-link>
       <router-link :to="{ name: 'profileme', params: { username: username }}" v-on:click.native="closeNav()">
         Profile
       </router-link>
