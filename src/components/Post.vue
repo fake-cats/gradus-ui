@@ -10,7 +10,7 @@
       <div class="row">
         <div class="col-sm-12 cards">
           <div class="col-sm-4">
-             <img src="https://i.redd.it/m2n3tfwiidk01.jpg" class="img-responsive" alt="Random images placeholder">
+             <img src="https://i.redd.it/4xlgwzf4v8f01.png" class="img-responsive" alt="Random images placeholder">
              <postvote></postvote>
              <h3>votes {{ post.cached_votes_total }}</h3>
           </div>
