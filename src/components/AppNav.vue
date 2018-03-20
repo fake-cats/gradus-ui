@@ -33,7 +33,7 @@
           <button class="btn btn-secondary" id="show-modal" @click="loginModal = true">Login</button>
         </div>
         <div v-else class="login">
-          <img src="https://images-na.ssl-images-amazon.com/images/G/01/aplusautomation/vendorimages/b6805169-4fe8-4bad-8e1a-3c67dac2f1a6.jpg._CB304351440__SL220__.jpg" class="avatar" alt="Avatar" @click="toggleSidebar()">
+          <img :src="navatar" class="avatar" alt="Avatar" @click="toggleSidebar()">
         </div>
       </ul>
       <login v-if="loginModal" @close="loginModal = false">
@@ -69,6 +69,7 @@
         avatarActive: false,
         loginModal: false,
         signupModal: false,
+        navatar: store.state.profile_image_url,
         username: store.state.username
       }
     },

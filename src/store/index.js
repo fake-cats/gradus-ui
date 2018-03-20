@@ -29,6 +29,7 @@ export default new Vuex.Store({
     user: ANONYMOUS_USER,
     username: localStorage.getItem('username'),
     profile_id: localStorage.getItem('profile_id'),
+    profile_image_url: localStorage.getItem('profile_image_url') || "https://images-na.ssl-images-amazon.com/images/G/01/aplusautomation/vendorimages/b6805169-4fe8-4bad-8e1a-3c67dac2f1a6.jpg._CB304351440__SL220__.jpg",
     isLoggedIn: !!localStorage.getItem('jwt'),
     jwt: localStorage.getItem('jwt') || DEFAULT_HEADERS,
     postImage: localStorage.getItem('postImage'),
@@ -43,6 +44,7 @@ export default new Vuex.Store({
       state.jwt = data.jwt;
       state.username = data.user.name;
       state.profile_id = data.user.id;
+      state.profile_image_url = data.user.profile_image_url;
       state.isLoggedIn = true;
       state.pending = false;
     },
@@ -74,6 +76,8 @@ export default new Vuex.Store({
             localStorage.setItem('username', username)
             var profile_id = response.data.user.id;
             localStorage.setItem('profile_id', profile_id)
+            var profile_image_url = response.data.user.profile_image_url;
+            localStorage.setItem('profile_image_url', profile_image_url)
             var userData = {
               user: response.data.user,
               jwt: response.data.jwt
@@ -99,6 +103,10 @@ export default new Vuex.Store({
             localStorage.setItem('jwt', jwt)
             var username = response.data.user.name;
             localStorage.setItem('username', username)
+            var profile_id = response.data.user.id;
+            localStorage.setItem('profile_id', profile_id)
+            var profile_image_url = response.data.user.profile_image_url;
+            localStorage.setItem('profile_image_url', profile_image_url)
             var userData = {
               user: response.data.user,
               jwt: response.data.jwt
