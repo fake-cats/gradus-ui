@@ -12,7 +12,7 @@
           <div class="col-sm-4">
              <img src="https://i.redd.it/4xlgwzf4v8f01.png" class="img-responsive" alt="Random images placeholder">
              <postvote></postvote>
-             <h3>votes {{ post.cached_votes_total }}</h3>
+             <h3>votes {{ post.cached_votes_score }}</h3>
           </div>
           <div class="col-sm-8">
             <h1>{{ post.title }}</h1>

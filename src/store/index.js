@@ -15,9 +15,10 @@ const ANONYMOUS_USER = {
 const ANONYMOUS_NAME = "Anonymous";
 const DEFAULT_HEADERS = {}
 const FIRST_DEGREE_POSTS = "FIRST_DEGREE_POSTS";
+const BASE_URL = 'https://gradusunum-mainframe-api.herokuapp.com/'
 
 const HTTP = axios.create({
-  baseURL: 'https://gradusunum-mainframe-api.herokuapp.com/',
+  baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   }
@@ -30,6 +31,7 @@ export default new Vuex.Store({
     profile_id: localStorage.getItem('profile_id'),
     isLoggedIn: !!localStorage.getItem('jwt'),
     jwt: localStorage.getItem('jwt') || DEFAULT_HEADERS,
+    postImage: localStorage.getItem('postImage'),
     firstDegreePosts: []
   },
   mutations: {
@@ -127,6 +129,13 @@ export default new Vuex.Store({
             console.log(error);
           });     
       });
+    },
+    postImage({
+      state,
+      commit,
+      rootState
+    }) {
+
     },
     logout({
       commit

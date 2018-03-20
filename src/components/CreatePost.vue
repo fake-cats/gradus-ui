@@ -24,6 +24,7 @@
 	      v-model="postBody">
 	      </textarea>
 		</div>
+		<imageupload></imageupload>
 		<button type="button" class="btn btn-primary" @click="createPost()">Post</button>
 	  </div>
 	  <div class="col-sm-2">
@@ -35,13 +36,10 @@
 <script>
 	import axios from 'axios'
 	import store from '../store'
+	import imageupload from './ImageUpload'
+	import { CREATE_POST_API_ENDPOINT } from '../api/endpoints'
 
-	  const HTTP = axios.create({
-	    baseURL: 'https://gradusunum-mainframe-api.herokuapp.com/',
-	    headers: {
-	      'Authorization': 'Bearer' + ' ' + store.state.jwt
-	    }
-	  });
+	  
 
 	export default {
 	  name: 'createpost',
@@ -49,6 +47,9 @@
 	    return {
 	      postTitle: '',
 	      postBody: '',
+	      postImage: null,
+	      postTags: [],
+	      postType: 'Post',
 	      errors: []
 	    }
 	  },
@@ -62,9 +63,13 @@
 		  // Pushes posts to the server when called.
 		  createPost() {
 		  	console.log(store.state)
-		    HTTP.post('posts', {
-		      title: this.postTitle,
-		      body: this.postBody
+		    HTTP.post(CREATE_POST_API_ENDPOINT, 
+		      {
+			      title: this.postTitle,
+			      body: this.postBody,
+			      image: this.postImage,
+			      tags: this.postTags,
+			      type: this.postType
 		  	  },
 		      { 
 		      	headers: { 
@@ -76,17 +81,10 @@
 		    .catch(e => {
 		      this.errors.push(e)
 		    })
-
-		    // async / await version (createPost() becomes async createPost())
-		    //
-		    // try {
-		    //   await axios.post(`https://gradusunum-mainframe-api.herokuapp.com/posts`, {
-		    //     body: this.postBody
-		    //   })
-		    // } catch (e) {
-		    //   this.errors.push(e)
-		    // }
 		  }
+	  },
+	  components: {
+	  	imageupload: imageupload
 	  }
 	}
 </script>

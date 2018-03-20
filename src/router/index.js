@@ -11,6 +11,7 @@ import Profile from '../components/Profile'
 import ProfileMe from '../components/ProfileMe'
 import Comments from '../components/Comments'
 import CommentCreate from '../components/CommentCreate'
+import imageupload from '../components/ImageUpload'
 
 
 

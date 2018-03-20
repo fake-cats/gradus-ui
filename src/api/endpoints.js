@@ -1,0 +1,1 @@
+export const CREATE_POST_API_ENDPOINT = '/api/v0/posts'

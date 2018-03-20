@@ -20,6 +20,7 @@
       </div>
       </div>
       <div class="col-sm-4">
+        <avatarimageupload></avatarimageupload>
       	<h2>
   	  	  Friend Requests
   	    </h2>
@@ -47,6 +48,7 @@
   import axios from 'axios'
   import moment from 'moment'
   import store from '../store'
+  import avatarimageupload from './AvatarImageUpload'
 
   const HTTP = axios.create({
     baseURL: 'https://gradusunum-mainframe-api.herokuapp.com/',
@@ -145,6 +147,9 @@
         }
       }
     },
+    components: {
+      avatarimageupload: avatarimageupload
+    }
   }
 </script>
 
