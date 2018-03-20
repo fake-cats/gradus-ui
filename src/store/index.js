@@ -16,6 +16,7 @@ const ANONYMOUS_NAME = "Anonymous";
 const DEFAULT_HEADERS = {}
 const FIRST_DEGREE_POSTS = "FIRST_DEGREE_POSTS";
 const BASE_URL = 'https://gradusunum-mainframe-api.herokuapp.com/'
+const AVATAR_DEFAULT = 'https://images-na.ssl-images-amazon.com/images/G/01/aplusautomation/vendorimages/b6805169-4fe8-4bad-8e1a-3c67dac2f1a6.jpg._CB304351440__SL220__.jpg'
 
 const HTTP = axios.create({
   baseURL: BASE_URL,
@@ -29,7 +30,7 @@ export default new Vuex.Store({
     user: ANONYMOUS_USER,
     username: localStorage.getItem('username'),
     profile_id: localStorage.getItem('profile_id'),
-    profile_image_url: localStorage.getItem('profile_image_url') || "https://images-na.ssl-images-amazon.com/images/G/01/aplusautomation/vendorimages/b6805169-4fe8-4bad-8e1a-3c67dac2f1a6.jpg._CB304351440__SL220__.jpg",
+    profile_image_url: localStorage.getItem('profile_image_url') || AVATAR_DEFAULT,
     isLoggedIn: !!localStorage.getItem('jwt'),
     jwt: localStorage.getItem('jwt') || DEFAULT_HEADERS,
     postImage: localStorage.getItem('postImage'),

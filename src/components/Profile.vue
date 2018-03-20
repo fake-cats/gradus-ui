@@ -2,6 +2,7 @@
 	<div class="profile">
 	  <h1>
 	    {{profile.name}}
+      <img :src="avatar" class="avatar" alt="Avatar">
 	  </h1>
 	  <div v-if="addSuccess === false">
 	    <button class="btn btn-secondary" @click="addFriend()">Add {{profile.name}}</button>
@@ -63,6 +64,7 @@
       	profile: {},
       	friends: [],
       	posts: [],
+        avatar: '',
       	id: this.$route.params.id,
       	addSuccess: false,
       	loading: false
@@ -84,6 +86,7 @@
           this.friend_id = response.data.id;
           this.friends = response.data.friends;
           this.posts = response.data.posts;
+          this.avatar = response.data.profile_image_url || "https://images-na.ssl-images-amazon.com/images/G/01/aplusautomation/vendorimages/b6805169-4fe8-4bad-8e1a-3c67dac2f1a6.jpg._CB304351440__SL220__.jpg";
         }, (error)  =>  {
           this.loading = false;
         })

@@ -1,8 +1,11 @@
 <template>
 <div class="profileme">
-  <h1>
-    {{username}}
-  </h1>
+  <div class="profilemeheader">
+    <avatarimageupload></avatarimageupload>
+    <h1>
+      {{username}}
+    </h1>
+  </div>
   <div class="wrapper">
     <div class="row">
       <div class="col-sm-8">
@@ -20,7 +23,6 @@
       </div>
       </div>
       <div class="col-sm-4">
-        <avatarimageupload></avatarimageupload>
       	<h2>
   	  	  Friend Requests
   	    </h2>
@@ -65,6 +67,7 @@
       	friends: [],
         friendRequests: [],
       	posts: [],
+        avatar: store.state.profile_image_url,
       	friend_id: this.$route.params.id,
         profile_id: store.state.profile_id,
         username: store.state.username,
@@ -157,5 +160,18 @@
   .profileme {
     padding-top: 60px;
   }
+
+  .profilemeheader {
+    margin-top: 5px;
+  }
+  .profilemeheader  h1 {
+    text-transform: capitalize;
+    margin-top: 10px;
+  }
   
+  .profilemeheader img {
+    height: 75px;
+    border-radius: 50%;
+  }
+
 </style>

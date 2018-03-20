@@ -2,18 +2,20 @@
   <div class="avatarimageupload">
     <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
       <div class="dropbox">
-        <!-- <input type="file" id="file" ref="file" multiple :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length" accept="image/*" class="input-file"> -->
-        <input type="file" id="file" ref="file" :disabled="isSaving" @change="filesChange()" accept="image/*" class="input-file">
-          <p v-if="isInitial">
+        <label for="file-input">
+          <img :src="avatar" class="uploadImage" />
+        </label>
+        <input type="file" id="file-input" ref="file" multiple :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length" accept="image/*" alt="Submit">
+          <!-- <p v-if="isInitial">
             Drag an image here<br>to set your avatar pic<br> or click to browse
           </p>
           <p v-if="isSaving">
             Uploading {{ fileCount }} files...
-          </p>
+          </p> -->
       </div>
     </form>
 
-    <!--SUCCESS-->
+    <!-- 
     <div v-if="isSuccess">
       <h2>Uploaded {{ uploadedFiles.length }} file(s) successfully</h2>
       <p>
@@ -24,14 +26,13 @@
         </li>
       </ul>
     </div>
-    <!--FAILED-->
     <div v-if="isFailed">
       <h2>Upload failed</h2>
       <p>
         <a href="javascript:void(0)" @click="reset()">Try again</a>
       </p>
       <pre>{{ uploadError }}</pre>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -59,6 +60,7 @@
         uploadError: null,
         currentStatus: null,
         file: '',
+        avatar: store.state.profile_image_url,
         showPreview: false,
         imagePreview: '',
         uploadFieldName: 'photos'
@@ -139,32 +141,41 @@
     padding: 0 30px;
   }
 
-  .dropbox {
-    outline: 2px dashed grey; /* the dash box */
-    outline-offset: -10px;
-    background: #F5F5F5;
-    color: dimgray;
-    padding: 10px 10px;
-    min-height: 50px; /* minimum height */
-    position: relative;
-    cursor: pointer;
+  // .dropbox {
+  //   outline: 2px dashed grey; /* the dash box */
+  //   outline-offset: -10px;
+  //   background: #F5F5F5;
+  //   color: dimgray;
+  //   padding: 10px 10px;
+  //   min-height: 50px; /* minimum height */
+  //   position: relative;
+  //   cursor: pointer;
+  // }
+
+  // .input-file {
+  //   opacity: 0; /* invisible but it's there! */
+  //   width: 100%;
+  //   height: 50px;
+  //   position: absolute;
+  //   cursor: pointer;
+  // }
+
+  // .dropbox:hover {
+  //   background: #EEF7FA; /* when mouse over to the drop zone, change color */
+  // }
+
+  // .dropbox p {
+  //   font-size: 1.2em;
+  //   text-align: center;
+  //   padding: 20px 0;
+  // }
+
+  .uploadImage {
+    height: 75px;
+    border-radius: 50%;
   }
 
-  .input-file {
-    opacity: 0; /* invisible but it's there! */
-    width: 100%;
-    height: 50px;
-    position: absolute;
-    cursor: pointer;
-  }
-
-  .dropbox:hover {
-    background: #EEF7FA; /* when mouse over to the drop zone, change color */
-  }
-
-  .dropbox p {
-    font-size: 1.2em;
-    text-align: center;
-    padding: 20px 0;
-  }
+  input[type=file] {
+    display: none;
+}
 </style>
