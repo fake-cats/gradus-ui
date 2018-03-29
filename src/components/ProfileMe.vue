@@ -156,7 +156,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .profileme {
     padding-top: 60px;
   }

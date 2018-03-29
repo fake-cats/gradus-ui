@@ -89,7 +89,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	.createpost {
 		padding-top: 60px;
 	}

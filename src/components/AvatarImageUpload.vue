@@ -1,7 +1,7 @@
 <template>
   <div class="avatarimageupload">
     <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
-      <div class="dropbox">
+      <div class="avatardropbox">
         <label for="file-input">
           <img :src="avatar" class="uploadImage" />
         </label>
@@ -140,35 +140,6 @@
   .avatarimageupload {
     padding: 0 30px;
   }
-
-  // .dropbox {
-  //   outline: 2px dashed grey; /* the dash box */
-  //   outline-offset: -10px;
-  //   background: #F5F5F5;
-  //   color: dimgray;
-  //   padding: 10px 10px;
-  //   min-height: 50px; /* minimum height */
-  //   position: relative;
-  //   cursor: pointer;
-  // }
-
-  // .input-file {
-  //   opacity: 0; /* invisible but it's there! */
-  //   width: 100%;
-  //   height: 50px;
-  //   position: absolute;
-  //   cursor: pointer;
-  // }
-
-  // .dropbox:hover {
-  //   background: #EEF7FA; /* when mouse over to the drop zone, change color */
-  // }
-
-  // .dropbox p {
-  //   font-size: 1.2em;
-  //   text-align: center;
-  //   padding: 20px 0;
-  // }
 
   .uploadImage {
     height: 75px;

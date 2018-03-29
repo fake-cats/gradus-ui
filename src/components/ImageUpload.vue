@@ -41,7 +41,9 @@
   import moment from 'moment'
   import store from '../store'
   import { upload } from '../api/post-image-upload.service';
+  import { wait } from '../api/utils';
 
+  const BASE_URL = 'localhost:8080/'
   const HTTP = axios.create({
     baseURL: 'https://gradusunum-mainframe-api.herokuapp.com/',
     headers: {
@@ -84,46 +86,58 @@
         this.uploadError = null;
       },
       save(formData) {
-        // set state.postImage to formData
-        var postImage = this.formData;
-        localStorage.setItem('postImage', postImage)
         // upload data to the server
-        // this.currentStatus = STATUS_SAVING;
-
-        // upload(formData)
-        //   .then(x => {
-        //     this.uploadedFiles = [].concat(x);
-        //     this.currentStatus = STATUS_SUCCESS;
-        //   })
-        //   .catch(err => {
-        //     this.uploadError = err.response;
-        //     this.currentStatus = STATUS_FAILED;
-        //   });
+        this.currentStatus = STATUS_SAVING;
+        upload(formData)
+          .then(wait(1500)) // DEV ONLY: wait for 1.5s 
+          .then(x => {
+            this.uploadedFiles = [].concat(x);
+            this.currentStatus = STATUS_SUCCESS;
+          })
+          .catch(err => {
+            this.uploadError = err.response;
+            this.currentStatus = STATUS_FAILED;
+          });
       },
       filesChange(fieldName, fileList) {
         // handle file changes
         const formData = new FormData();
-
         if (!fileList.length) return;
-
         // append the files to FormData
         Array
           .from(Array(fileList.length).keys())
           .map(x => {
             formData.append(fieldName, fileList[x], fileList[x].name);
           });
-
         // save it
         this.save(formData);
+      }
+    },
+    previewImage: function(event) {
+        // Reference to the DOM input element
+      var input = event.target;
+      // Ensure that you have a file before attempting to read it
+      if (input.files && input.files[0]) {
+          // create a new FileReader to read this image and convert to base64 format
+          var reader = new FileReader();
+          // Define a callback function to run, when FileReader finishes its job
+          reader.onload = (e) => {
+              // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+              // Read image as base64 and set to imageData
+              this.imageData = e.target.result;
+          }
+          // Start the reader job - read file as a data url (base64 format)
+          reader.readAsDataURL(input.files[0]);
       }
     },
     mounted() {
       this.reset();
     },
   }
+
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .dropbox {
     outline: 2px dashed grey; /* the dash box */
     outline-offset: -10px;
