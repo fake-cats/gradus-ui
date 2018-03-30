@@ -1,9 +1,9 @@
 <template>
   <div class="imageupload">
-    <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
+    <!-- <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
       <h1>Upload images</h1>
       <div class="dropbox">
-        <input type="file" multiple :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length" accept="image/*" class="input-file">
+        <input type="file" multiple :name="uploadFieldName" :disabled="isSaving" accept="image/*" class="input-file" @change="filesChange()">
           <p v-if="isInitial">
             Drag your file(s) here to begin<br> or click to browse
           </p>
@@ -13,7 +13,7 @@
       </div>
     </form>
 
-    <!--SUCCESS-->
+    SUCCESS
     <div v-if="isSuccess">
       <h2>Uploaded {{ uploadedFiles.length }} file(s) successfully</h2>
       <p>
@@ -21,17 +21,35 @@
       </p>
       <ul class="list-unstyled">
         <li v-for="item in uploadedFiles">
-          <img :src="item.url" class="img-responsive img-thumbnail" :alt="item.originalName">
+          <img :src="item.url" class="img-responsive img-thumbnail" height="200px" :alt="item.originalName">
         </li>
       </ul>
     </div>
-    <!--FAILED-->
+    FAILED
     <div v-if="isFailed">
       <h2>Upload failed</h2>
       <p>
         <a href="javascript:void(0)" @click="reset()">Try again</a>
       </p>
       <pre>{{ uploadError }}</pre>
+    </div>
+  </div> -->
+    <div class="fileinput" v-if="isInitial || isSaving">
+      <input type="file" multiple @change="fileAdded" id="fileinput">
+      <img-preview v-for="(file, index) in files" :idx="index" :file="file" :key="file.src" v-if="file"></img-preview>
+    </div>
+    <div v-if="isSuccess">
+      <h2>Uploaded successfully</h2>
+      <p>
+        <a href="javascript:void(0)" @click="reset()">Upload again</a>
+      </p>
+      <img-preview v-for="(file, index) in files" :idx="index" :file="file" :key="file.src" v-if="file"></img-preview>
+    </div>
+    <div v-if="isFailed">
+      <h2>Upload failed</h2>
+      <p>
+        <a href="javascript:void(0)" @click="reset()">Try again</a>
+      </p>
     </div>
   </div>
 </template>
@@ -40,6 +58,7 @@
   import axios from 'axios'
   import moment from 'moment'
   import store from '../store'
+  import imgPreview from './ImgPreview'
   import { upload } from '../api/post-image-upload.service';
   import { wait } from '../api/utils';
 
@@ -57,11 +76,10 @@
     name: 'imageupload',
     data () {
       return {
-        fileCount: null,
-        uploadedFiles: [],
         uploadError: null,
         currentStatus: null,
-        uploadFieldName: 'photos'
+        files: null,
+        src: ''
       }
     },
     computed: {
@@ -78,61 +96,27 @@
         return this.currentStatus === STATUS_FAILED;
       }
     },
+    props: ['file', 'idx'],
     methods: {
       reset() {
         // reset form to initial state
         this.currentStatus = STATUS_INITIAL;
-        this.uploadedFiles = [];
+        this.files = null;
+        this.src = '';
         this.uploadError = null;
       },
-      save(formData) {
-        // upload data to the server
-        this.currentStatus = STATUS_SAVING;
-        upload(formData)
-          .then(wait(1500)) // DEV ONLY: wait for 1.5s 
-          .then(x => {
-            this.uploadedFiles = [].concat(x);
-            this.currentStatus = STATUS_SUCCESS;
-          })
-          .catch(err => {
-            this.uploadError = err.response;
-            this.currentStatus = STATUS_FAILED;
-          });
-      },
-      filesChange(fieldName, fileList) {
-        // handle file changes
-        const formData = new FormData();
-        if (!fileList.length) return;
-        // append the files to FormData
-        Array
-          .from(Array(fileList.length).keys())
-          .map(x => {
-            formData.append(fieldName, fileList[x], fileList[x].name);
-          });
-        // save it
-        this.save(formData);
-      }
-    },
-    previewImage: function(event) {
-        // Reference to the DOM input element
-      var input = event.target;
-      // Ensure that you have a file before attempting to read it
-      if (input.files && input.files[0]) {
-          // create a new FileReader to read this image and convert to base64 format
-          var reader = new FileReader();
-          // Define a callback function to run, when FileReader finishes its job
-          reader.onload = (e) => {
-              // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-              // Read image as base64 and set to imageData
-              this.imageData = e.target.result;
-          }
-          // Start the reader job - read file as a data url (base64 format)
-          reader.readAsDataURL(input.files[0]);
+      fileAdded() {
+      const input = document.getElementById('fileinput');
+      this.files = [...input.files];
+      this.currentStatus = STATUS_SUCCESS;
       }
     },
     mounted() {
       this.reset();
     },
+    components: { 
+      imgPreview: imgPreview
+    }
   }
 
 </script>
@@ -155,6 +139,10 @@
     height: 200px;
     position: absolute;
     cursor: pointer;
+  }
+
+  #fileinput {
+    margin: 0 auto;
   }
 
   .dropbox:hover {

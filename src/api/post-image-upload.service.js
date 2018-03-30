@@ -3,28 +3,28 @@ import store from '../store'
 
 function upload(formData) {
     const photos = formData.getAll('photos');
-    const promises = photos.map((x) => getImage(x)
-        .then(img => ({
-            id: img,
-            originalName: x.name,
-            fileName: x.name,
-            url: img
-        })));
-    return Promise.all(promises);
+    const promises = photos.map((x) => getImage(x))
+
+        // .then(img => ({
+        //     id: img,
+        //     originalName: x.name,
+        //     fileName: x.name,
+        //     url: img
+        // })));
+    // return Promise.all(promises);
 }
 
 function getImage(file) {
-    return new Promise((resolve, reject) => {
-        const fReader = new FileReader();
-        const img = document.createElement('img');
+    const reader = new FileReader();
+    const img = document.createElement('img');
 
-        fReader.onload = () => {
-            img.src = fReader.result;
-            resolve(getBase64Image(img));
-        }
+    reader.onload = function() {
+        console.log(reader.result)
+        img.src = reader.result;
+        // resolve(getBase64Image(img));
+    }
 
-        fReader.readAsDataURL(file);
-    })
+    reader.readAsDataURL(file);
 }
 
 function getBase64Image(img) {
